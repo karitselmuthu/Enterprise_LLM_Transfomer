@@ -1,0 +1,21 @@
+id,text,label,application
+OK001,Okta says my account is locked even after the service desk reset my password,access,Okta
+OK002,I changed phones and cannot enroll the new Okta Verify device,access,Okta
+OK003,The finance application tile disappeared from my Okta dashboard after my role changed,access,Okta
+OK004,My security key is registered but Okta says I am not allowed into the payroll group,access,Okta
+OK005,The sign in page rejects my correct password after yesterday's account migration,access,Okta
+OK006,My USB security key snapped and I cannot insert it into the laptop,hardware,Okta
+OK007,The company phone used for Okta Verify has a shattered screen and cannot display the prompt,hardware,Okta
+OK008,The fingerprint sensor on my assigned laptop is physically damaged and cannot be used for sign in,hardware,Okta
+OK009,The spare security key has a loose connector and disconnects whenever it is touched,hardware,Okta
+OK010,My phone battery is swollen and the device will not power on for Okta Verify,hardware,Okta
+OK011,Okta loads on mobile data but times out on the office wired network,network,Okta
+OK012,Several users at the branch cannot reach the Okta sign in page after a DNS change,network,Okta
+OK013,The proxy returns a gateway timeout before the Okta login form appears,network,Okta
+OK014,Okta Verify pushes arrive only when my phone leaves the guest Wi-Fi,network,Okta
+OK015,The VPN connects but the route to our Okta tenant drops every few minutes,network,Okta
+OK016,Okta Verify closes immediately after the latest Android app update,software,Okta
+OK017,The Okta browser extension shows a blank window when I open an application tile,software,Okta
+OK018,The Okta dashboard displays an error page after I select any application,software,Okta
+OK019,The Okta Verify desktop installer fails with an unsupported version message,software,Okta
+OK020,After the browser update the Okta sign in button does nothing in Chrome,software,Okta

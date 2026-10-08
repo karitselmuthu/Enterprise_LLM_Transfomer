@@ -1,0 +1,13 @@
+{
+  "dataset": "data/samples/tickets.csv",
+  "steps": 150,
+  "seed": 42,
+  "model": {
+    "dimension": 32,
+    "heads": 4,
+    "kv_heads": 2,
+    "layers": 1,
+    "max_context": 64,
+    "experts": 0
+  }
+}

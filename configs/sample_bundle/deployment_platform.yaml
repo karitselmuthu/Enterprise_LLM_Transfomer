@@ -1,0 +1,33 @@
+# Intended deployment platform — SAMPLE. Choose one target; others kept for comparison.
+target: azure_ml_managed_online_endpoint
+environment: nonprod             # promote to prod only after acceptance gates + approved checkpoint
+region: centralindia
+targets:
+  azure_ml_managed_online_endpoint:
+    endpoint_name: ticket-classifier-nonprod
+    instance_type: Standard_DS3_v2
+    instance_count: { min: 1, max: 3 }
+    autoscale_metric: requests_per_minute
+    auth_mode: aad_token
+    network: private_endpoint_only
+    model_registry: azureml://registries/<registry-name>   # placeholder
+    secrets_source: azure_key_vault
+  aws_sagemaker_realtime:
+    instance_type: ml.m5.large
+    secrets_source: aws_secrets_manager
+  gcp_vertex_endpoint:
+    machine_type: n1-standard-4
+    secrets_source: gcp_secret_manager
+  local_docker:
+    image: ticket-classifier:<git-sha>
+    port: 8080
+serving:
+  framework: transformers + fastapi
+  max_length: 128
+  batch_size: 16
+  response: { label: str, confidence: float, abstained: bool, model_run_id: str }
+  logging: { inputs: redacted, outputs: full, sample_rate: 1.0 }
+monitoring:
+  - label distribution drift vs training (weekly)
+  - abstain rate and confidence histogram (daily)
+  - human-override rate from service desk (weekly)

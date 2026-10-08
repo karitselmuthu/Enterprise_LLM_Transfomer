@@ -1,0 +1,401 @@
+id,text,label
+A01,I cannot sign in to my account,access
+A02,Password reset link has expired,access
+A03,My account is locked after failed logins,access
+A04,Please grant access to the finance folder,access
+A05,Single sign on rejects my credentials,access
+A06,I need permission to open the HR dashboard,access
+A07,The login page says my password is incorrect,access
+A08,Please remove access for a departed employee,access
+A09,Multi factor authentication code is not arriving,access
+A10,My user role does not allow this report,access
+H01,My laptop screen is cracked,hardware
+H02,The keyboard keys are sticking,hardware
+H03,The office printer is jammed,hardware
+H04,My monitor will not turn on,hardware
+H05,The laptop battery drains quickly,hardware
+H06,Mouse scroll wheel is broken,hardware
+H07,The docking station does not detect my monitor,hardware
+H08,Printer toner needs replacing,hardware
+H09,The webcam hardware stopped working,hardware
+H10,My laptop fan is making a loud noise,hardware
+N01,VPN disconnects every few minutes,network
+N02,Office wifi is unavailable,network
+N03,The internet connection is very slow,network
+N04,I cannot reach the internal network,network
+N05,VPN authentication succeeds but the connection drops,network
+N06,The router in our meeting room is offline,network
+N07,Wifi signal is weak on the third floor,network
+N08,Network latency is high during video calls,network
+N09,The office ethernet port has no connection,network
+N10,Remote desktop cannot connect over VPN,network
+S01,The spreadsheet application crashes on launch,software
+S02,Please install the latest browser update,software
+S03,Our accounting app shows an error message,software
+S04,The desktop application freezes when saving,software
+S05,Please update the installed software version,software
+S06,The browser tab crashes when opening a report,software
+S07,The app fails to export a PDF file,software
+S08,The calendar application will not sync events,software
+S09,An error appears when I launch the editor,software
+S10,Please install the approved design application,software
+A11,the finance shared folder shows access denied for me,access
+A12,Authenticator app was reset and I cannot complete MFA for Jira - please help.,access
+A13,I need read access to the sales dashboard.,access
+A14,"FYI the board pack folder shows access denied for me, colleagues see the same.",access
+A15,Since this morning my the analytics workspace password has expired.,access
+A16,I cannot sign in to the HR portal.,access
+A17,"FYI request to elevate my role to approver in the HR portal, colleagues see the same.",access
+A18,"FYI I need read access to the board pack folder, colleagues see the same.",access
+A19,My SSO session keeps asking me to re-authenticate on the CRM. Tried restarting already.,access
+A20,request to elevate my role to approver in Jira,access
+A21,Since this morning new joiner needs an account created in Okta.,access
+A22,"Hi team, MFA prompt never appears when I log in to Jira.",access
+A23,"I need read access to the customer data extract, this is blocking my work today.",access
+A24,Since this morning my the expense tool password has expired.,access
+A25,"My the payroll system password has expired, this is blocking my work today.",access
+A26,"FYI authenticator app was reset and I cannot complete MFA for the VPN portal, colleagues see the same.",access
+A27,My SharePoint password has expired.,access
+A28,My account got locked after too many attempts on Jira?,access
+A29,"My permissions were removed after the role change and I need the customer data extract back, this is blocking my work today.",access
+A30,Request to elevate my role to approver in the CRM.,access
+A31,Urgent: I cannot sign in to the CRM,access
+A32,My the CRM password has expired.,access
+A33,My SSO session keeps asking me to re-authenticate on Jira. Tried restarting already.,access
+A34,"The customer data extract shows access denied for me, this is blocking my work today.",access
+A35,"The payroll system says my account is disabled, this is blocking my work today.",access
+A36,Authenticator app was reset and I cannot complete MFA for the expense tool?,access
+A37,"FYI the sales dashboard shows access denied for me, colleagues see the same.",access
+A38,"Hi team, authenticator app was reset and I cannot complete MFA for the CRM.",access
+A39,Urgent: I was added to the wrong group and cannot see the procurement site,access
+A40,"FYI my permissions were removed after the role change and I need the board pack folder back, colleagues see the same.",access
+A41,Service account credentials for the HR portal need rotating - please help.,access
+A42,"I need read access to the project repository, this is blocking my work today.",access
+A43,"Hi team, my SSO session keeps asking me to re-authenticate on the VPN portal.",access
+A44,Please revoke Okta access for a leaver in my team - please help.,access
+A45,"FYI authenticator app was reset and I cannot complete MFA for Workday, colleagues see the same.",access
+A46,Since this morning please revoke the analytics workspace access for a leaver in my team.,access
+A47,Since this morning my permissions were removed after the role change and I need the project repository back.,access
+A48,"Hi team, MFA prompt never appears when I log in to the CRM.",access
+A49,My account got locked after too many attempts on the VPN portal.,access
+A50,New joiner needs an account created in the HR portal.,access
+A51,Since this morning Okta says my account is disabled.,access
+A52,Since this morning request to elevate my role to approver in the expense tool.,access
+A53,My SSO session keeps asking me to re-authenticate on the analytics workspace. Tried restarting already.,access
+A54,Urgent: the project repository shows access denied for me,access
+A55,New joiner needs an account created in the payroll system.,access
+A56,"Hi team, please revoke SharePoint access for a leaver in my team.",access
+A57,Urgent: I was added to the wrong group and cannot see the finance shared folder,access
+A58,"FYI my account got locked after too many attempts on Okta, colleagues see the same.",access
+A59,Urgent: my permissions were removed after the role change and I need the finance shared folder back,access
+A60,Service account credentials for Workday need rotating?,access
+A61,new joiner needs an account created in Workday,access
+A62,Request to elevate my role to approver in the payroll system. Tried restarting already.,access
+A63,"I cannot sign in to the expense tool, this is blocking my work today.",access
+A64,I need read access to the finance shared folder - please help.,access
+A65,My the VPN portal password has expired.,access
+A66,"FYI the VPN portal says my account is disabled, colleagues see the same.",access
+A67,"FYI Jira says my account is disabled, colleagues see the same.",access
+A68,Since this morning service account credentials for the analytics workspace need rotating.,access
+A69,I was added to the wrong group and cannot see the project repository. Tried restarting already.,access
+A70,Request to elevate my role to approver in Workday - please help.,access
+A71,My the HR portal password has expired - please help.,access
+A72,My Workday password has expired - please help.,access
+A73,Please revoke the VPN portal access for a leaver in my team - please help.,access
+A74,Request to elevate my role to approver in the VPN portal - please help.,access
+A75,Since this morning new joiner needs an account created in the VPN portal.,access
+A76,"The procurement site shows access denied for me, this is blocking my work today.",access
+A77,My SSO session keeps asking me to re-authenticate on SharePoint. Tried restarting already.,access
+A78,"I cannot sign in to SharePoint, this is blocking my work today.",access
+A79,New joiner needs an account created in the expense tool - please help.,access
+A80,Since this morning I was added to the wrong group and cannot see the sales dashboard.,access
+A81,"FYI I was added to the wrong group and cannot see the customer data extract, colleagues see the same.",access
+A82,SharePoint says my account is disabled. Tried restarting already.,access
+A83,Since this morning my SSO session keeps asking me to re-authenticate on the HR portal.,access
+A84,My SSO session keeps asking me to re-authenticate on Workday. Tried restarting already.,access
+A85,Urgent: the CRM says my account is disabled,access
+A86,authenticator app was reset and I cannot complete MFA for the payroll system,access
+A87,I cannot sign in to the analytics workspace. Tried restarting already.,access
+A88,"Hi team, my account got locked after too many attempts on Workday.",access
+A89,I cannot sign in to Workday.,access
+A90,Service account credentials for Okta need rotating.,access
+A91,My SSO session keeps asking me to re-authenticate on the expense tool?,access
+A92,Urgent: my account got locked after too many attempts on the payroll system,access
+A93,Since this morning I need read access to the audit report.,access
+A94,MFA prompt never appears when I log in to the expense tool,access
+A95,"My permissions were removed after the role change and I need the sales dashboard back, this is blocking my work today.",access
+A96,"Hi team, please revoke the expense tool access for a leaver in my team.",access
+A97,Please revoke Jira access for a leaver in my team?,access
+A98,"FYI authenticator app was reset and I cannot complete MFA for SharePoint, colleagues see the same.",access
+A99,"My account got locked after too many attempts on the HR portal, this is blocking my work today.",access
+A100,my SSO session keeps asking me to re-authenticate on Okta,access
+H11,the tablet stopped charging even with a new cable,hardware
+H12,The laptop display flickers on its own - please help.,hardware
+H13,"FYI the desk phone makes a clicking noise, colleagues see the same.",hardware
+H14,"Hi team, the label printer arrived broken in the box.",hardware
+H15,"Hi team, the laptop hinge snapped.",hardware
+H16,"Hi team, the laptop arrived broken in the box.",hardware
+H17,"Need a replacement printer, the old one was dropped - please help.",hardware
+H18,The laptop screen has dead pixels.,hardware
+H19,Spilled coffee on my laptop. Tried restarting already.,hardware
+H20,The monitor display flickers on its own - please help.,hardware
+H21,Urgent: spilled coffee on my desk phone,hardware
+H22,"The headset overheats after an hour, this is blocking my work today.",hardware
+H23,"FYI the printer cable is frayed, colleagues see the same.",hardware
+H24,"Need a replacement laptop, the old one was dropped.",hardware
+H25,"The desk phone arrived broken in the box, this is blocking my work today.",hardware
+H26,The docking station makes a clicking noise?,hardware
+H27,Since this morning the label printer in the second floor print room keeps jamming.,hardware
+H28,"FYI my mouse is physically damaged, colleagues see the same.",hardware
+H29,The label printer in meeting room 4B keeps jamming.,hardware
+H30,"Need a replacement label printer, the old one was dropped, this is blocking my work today.",hardware
+H31,"FYI spilled coffee on my headset, colleagues see the same.",hardware
+H32,Since this morning a key on my laptop came off.,hardware
+H33,"Hi team, spilled coffee on my badge reader.",hardware
+H34,Since this morning the tablet USB-C port is loose.,hardware
+H35,Urgent: the laptop has a vertical line across it,hardware
+H36,Since this morning the laptop stopped charging even with a new cable.,hardware
+H37,The webcam power adapter smells burnt - please help.,hardware
+H38,"Hi team, the webcam cable is frayed.",hardware
+H39,"Need a replacement monitor, the old one was dropped - please help.",hardware
+H40,The tablet hinge snapped?,hardware
+H41,Since this morning the webcam overheats after an hour.,hardware
+H42,Since this morning the laptop USB-C port is loose.,hardware
+H43,The printer casing is cracked - please help.,hardware
+H44,"Hi team, the keyboard arrived broken in the box.",hardware
+H45,The docking station power adapter smells burnt. Tried restarting already.,hardware
+H46,The mouse cable is frayed?,hardware
+H47,"Need a replacement webcam, the old one was dropped?",hardware
+H48,The headset power adapter smells burnt - please help.,hardware
+H49,The monitor screen has dead pixels - please help.,hardware
+H50,"FYI need a replacement desk phone, the old one was dropped, colleagues see the same.",hardware
+H51,"Hi team, the docking station overheats after an hour.",hardware
+H52,Since this morning the printer in meeting room 4B keeps jamming.,hardware
+H53,"Need a replacement mouse, the old one was dropped. Tried restarting already.",hardware
+H54,The printer arrived broken in the box?,hardware
+H55,Since this morning my label printer is physically damaged.,hardware
+H56,"The laptop casing is cracked, this is blocking my work today.",hardware
+H57,"Since this morning need a replacement badge reader, the old one was dropped.",hardware
+H58,"Hi team, my tablet battery swelled.",hardware
+H59,The docking station arrived broken in the box. Tried restarting already.,hardware
+H60,Urgent: my laptop battery swelled,hardware
+H61,"The desk phone power adapter smells burnt, this is blocking my work today.",hardware
+H62,The laptop will not power on - please help.,hardware
+H63,"Hi team, the printer in the warehouse keeps jamming.",hardware
+H64,The printer makes a clicking noise. Tried restarting already.,hardware
+H65,Urgent: the laptop makes a clicking noise,hardware
+H66,"The monitor has a vertical line across it, this is blocking my work today.",hardware
+H67,"The mouse overheats after an hour, this is blocking my work today.",hardware
+H68,My printer is physically damaged. Tried restarting already.,hardware
+H69,"Need a replacement keyboard, the old one was dropped.",hardware
+H70,The label printer power adapter smells burnt?,hardware
+H71,"Hi team, the desk phone casing is cracked.",hardware
+H72,"The keyboard casing is cracked, this is blocking my work today.",hardware
+H73,Since this morning the printer in reception keeps jamming.,hardware
+H74,The mouse casing is cracked - please help.,hardware
+H75,The badge reader casing is cracked. Tried restarting already.,hardware
+H76,The laptop power adapter smells burnt.,hardware
+H77,Since this morning the desk phone cable is frayed.,hardware
+H78,The headset casing is cracked?,hardware
+H79,Urgent: the label printer cable is frayed,hardware
+H80,a key on my keyboard came off,hardware
+H81,Urgent: the mouse will not power on,hardware
+H82,The webcam casing is cracked. Tried restarting already.,hardware
+H83,"need a replacement docking station, the old one was dropped",hardware
+H84,The printer overheats after an hour. Tried restarting already.,hardware
+H85,the label printer overheats after an hour,hardware
+H86,The headset arrived broken in the box?,hardware
+H87,The label printer will not power on.,hardware
+H88,The printer in the Chennai office keeps jamming.,hardware
+H89,The monitor power adapter smells burnt - please help.,hardware
+H90,Urgent: the docking station will not power on,hardware
+H91,The badge reader arrived broken in the box. Tried restarting already.,hardware
+H92,Urgent: the webcam arrived broken in the box,hardware
+H93,spilled coffee on my mouse,hardware
+H94,"FYI the keyboard will not power on, colleagues see the same.",hardware
+H95,My badge reader is physically damaged?,hardware
+H96,The monitor arrived broken in the box - please help.,hardware
+H97,Since this morning the headset cable is frayed.,hardware
+H98,"Hi team, the mouse power adapter smells burnt.",hardware
+H99,Spilled coffee on my keyboard?,hardware
+H100,The docking station cable is frayed.,hardware
+N11,Since this morning guest wifi captive page will not load in the warehouse.,network
+N12,"FYI proxy is blocking the vendor portal for everyone in the warehouse, colleagues see the same.",network
+N13,Urgent: remote desktop session freezes over the VPN,network
+N14,Speed test from the training room shows under 1 Mbps. Tried restarting already.,network
+N15,DNS lookups for intranet sites time out. Tried restarting already.,network
+N16,"Network drive mapping fails every 10 minutes, this is blocking my work today.",network
+N17,"FYI proxy is blocking the vendor portal for everyone in the training room, colleagues see the same.",network
+N18,"The access point in the cafeteria keeps rebooting, this is blocking my work today.",network
+N19,Bandwidth is very low in my home office since morning - please help.,network
+N20,Speed test from the cafeteria shows under 1 Mbps - please help.,network
+N21,"Wifi authenticates but gets no IP address in meeting room 4B, this is blocking my work today.",network
+N22,Since this morning cannot ping the gateway from my home office.,network
+N23,"Hi team, the access point in my home office keeps rebooting.",network
+N24,"Hi team, cannot ping the gateway from meeting room 4B.",network
+N25,VPN client shows connected but no internal sites load?,network
+N26,"FYI video calls from meeting room 4B keep buffering, colleagues see the same.",network
+N27,"Hi team, wifi authenticates but gets no IP address in the warehouse.",network
+N28,Urgent: packet loss on video calls from the cafeteria,network
+N29,"Packet loss on video calls from the warehouse, this is blocking my work today.",network
+N30,"FYI cannot ping the gateway from the warehouse, colleagues see the same.",network
+N31,Wifi in the training room is down.,network
+N32,Urgent: site-to-site link to the branch office is flapping,network
+N33,Urgent: video calls from the third floor keep buffering,network
+N34,"The VPN tunnel drops every 2 minutes, this is blocking my work today.",network
+N35,"Wifi in the Bengaluru branch is down, this is blocking my work today.",network
+N36,"Hi team, latency to the cloud region spiked to over 1000 ms.",network
+N37,"Hi team, wifi authenticates but gets no IP address in the training room.",network
+N38,The ethernet port in the third floor shows no link light.,network
+N39,The access point in the training room keeps rebooting - please help.,network
+N40,"Hi team, cannot ping the gateway from the training room.",network
+N41,Urgent: guest wifi captive page will not load in the cafeteria,network
+N42,Urgent: the VPN tunnel drops every 10 minutes,network
+N43,Network drive mapping fails every 3 minutes.,network
+N44,Video calls from the Bengaluru branch keep buffering?,network
+N45,Bandwidth is very low in the cafeteria since morning. Tried restarting already.,network
+N46,Since this morning cannot reach the internal file server from the third floor.,network
+N47,Speed test from the Bengaluru branch shows under 1 Mbps?,network
+N48,the VPN tunnel drops every 15 minutes,network
+N49,Latency to the cloud region spiked to over 300 ms - please help.,network
+N50,"Hi team, guest wifi captive page will not load in my home office.",network
+N51,cannot reach the internal file server from my home office,network
+N52,Wifi authenticates but gets no IP address in the third floor - please help.,network
+N53,"FYI latency to the cloud region spiked to over 1500 ms, colleagues see the same.",network
+N54,Cannot reach the internal file server from the cafeteria.,network
+N55,"FYI the access point in the warehouse keeps rebooting, colleagues see the same.",network
+N56,Since this morning latency to the cloud region spiked to over 200 ms.,network
+N57,"FYI the VPN tunnel drops every 5 minutes, colleagues see the same.",network
+N58,Since this morning guest wifi captive page will not load in the training room.,network
+N59,Network drive mapping fails every 5 minutes?,network
+N60,Urgent: video calls from my home office keep buffering,network
+N61,Urgent: wifi in meeting room 4B is down,network
+N62,Wifi authenticates but gets no IP address in my home office.,network
+N63,"Guest wifi captive page will not load in meeting room 4B, this is blocking my work today.",network
+N64,The access point in the Bengaluru branch keeps rebooting - please help.,network
+N65,Cannot reach the internal file server from the warehouse. Tried restarting already.,network
+N66,Packet loss on video calls from my home office - please help.,network
+N67,Speed test from the third floor shows under 1 Mbps.,network
+N68,Bandwidth is very low in the warehouse since morning - please help.,network
+N69,"Hi team, proxy is blocking the vendor portal for everyone in meeting room 4B.",network
+N70,"FYI wifi in my home office is down, colleagues see the same.",network
+N71,"Packet loss on video calls from meeting room 4B, this is blocking my work today.",network
+N72,"Proxy is blocking the vendor portal for everyone in the cafeteria, this is blocking my work today.",network
+N73,"Hi team, guest wifi captive page will not load in the Bengaluru branch.",network
+N74,Since this morning wifi authenticates but gets no IP address in the Bengaluru branch.,network
+N75,"FYI cannot reach the internal file server from the training room, colleagues see the same.",network
+N76,Bandwidth is very low in the third floor since morning. Tried restarting already.,network
+N77,Network drive mapping fails every 15 minutes?,network
+N78,Network drive mapping fails every 2 minutes?,network
+N79,proxy is blocking the vendor portal for everyone in the Bengaluru branch,network
+N80,"Hi team, the ethernet port in the warehouse shows no link light.",network
+N81,Since this morning speed test from my home office shows under 1 Mbps.,network
+N82,packet loss on video calls from the third floor,network
+N83,"Latency to the cloud region spiked to over 500 ms, this is blocking my work today.",network
+N84,"Hi team, wifi in the third floor is down.",network
+N85,Cannot reach the internal file server from meeting room 4B. Tried restarting already.,network
+N86,wifi in the cafeteria is down,network
+N87,"The access point in meeting room 4B keeps rebooting, this is blocking my work today.",network
+N88,"Video calls from the warehouse keep buffering, this is blocking my work today.",network
+N89,"Proxy is blocking the vendor portal for everyone in the third floor, this is blocking my work today.",network
+N90,"FYI the ethernet port in meeting room 4B shows no link light, colleagues see the same.",network
+N91,"Speed test from meeting room 4B shows under 1 Mbps, this is blocking my work today.",network
+N92,Packet loss on video calls from the training room?,network
+N93,"FYI video calls from the training room keep buffering, colleagues see the same.",network
+N94,Bandwidth is very low in the Bengaluru branch since morning?,network
+N95,Proxy is blocking the vendor portal for everyone in my home office.,network
+N96,"The ethernet port in the Bengaluru branch shows no link light, this is blocking my work today.",network
+N97,"Wifi in the warehouse is down, this is blocking my work today.",network
+N98,Packet loss on video calls from the Bengaluru branch.,network
+N99,Cannot ping the gateway from the third floor - please help.,network
+N100,"Hi team, the access point in the third floor keeps rebooting.",network
+S11,"Hi team, please install the BI desktop app on my machine.",software
+S12,macro stopped working in Visual Studio Code after patch Tuesday,software
+S13,Chrome plugin is incompatible after the upgrade - please help.,software
+S14,Urgent: license expired message in the BI desktop app,software
+S15,Need Visual Studio Code downgraded to the previous version - please help.,software
+S16,Urgent: Teams exports corrupt PDF files,software
+S17,The BI desktop app freezes when I click save. Tried restarting already.,software
+S18,Since this morning license expired message in the design tool.,software
+S19,Since this morning Adobe Reader exports corrupt PDF files.,software
+S20,Please install Teams on my machine?,software
+S21,please install the design tool on my machine,software
+S22,"Visual Studio Code uses 100 percent CPU and hangs, this is blocking my work today.",software
+S23,"FYI Outlook exports corrupt PDF files, colleagues see the same.",software
+S24,"Hi team, the design tool throws error code 0x80070005 on startup.",software
+S25,"FYI Visual Studio Code is stuck on the loading screen, colleagues see the same.",software
+S26,Please install the ERP client on my machine.,software
+S27,"Visual Studio Code update failed halfway, this is blocking my work today.",software
+S28,the ERP client crashes when I open large files,software
+S29,"Adobe Reader plugin is incompatible after the upgrade, this is blocking my work today.",software
+S30,The ERP client update failed halfway.,software
+S31,Teams freezes when I click save,software
+S32,"Outlook freezes when I click save, this is blocking my work today.",software
+S33,"Hi team, need the accounting app downgraded to the previous version.",software
+S34,The design tool crashes when I open large files. Tried restarting already.,software
+S35,Macro stopped working in the accounting app after patch Tuesday. Tried restarting already.,software
+S36,Excel throws error code 500 on startup - please help.,software
+S37,Please install Adobe Reader on my machine?,software
+S38,The ERP client exports corrupt PDF files.,software
+S39,Need the design tool downgraded to the previous version - please help.,software
+S40,Outlook is stuck on the loading screen,software
+S41,License expired message in Outlook.,software
+S42,Adobe Reader crashes when I open large files?,software
+S43,Urgent: the accounting app update failed halfway,software
+S44,Excel plugin is incompatible after the upgrade?,software
+S45,The accounting app plugin is incompatible after the upgrade.,software
+S46,Chrome exports corrupt PDF files.,software
+S47,"FYI need Adobe Reader downgraded to the previous version, colleagues see the same.",software
+S48,"Excel is stuck on the loading screen, this is blocking my work today.",software
+S49,"Need Outlook downgraded to the previous version, this is blocking my work today.",software
+S50,Outlook update failed halfway?,software
+S51,"Hi team, macro stopped working in Chrome after patch Tuesday.",software
+S52,"FYI Chrome crashes when I open large files, colleagues see the same.",software
+S53,The accounting app freezes when I click save. Tried restarting already.,software
+S54,Teams is stuck on the loading screen,software
+S55,need Teams downgraded to the previous version,software
+S56,"FYI the design tool freezes when I click save, colleagues see the same.",software
+S57,Chrome is stuck on the loading screen,software
+S58,Urgent: Chrome uses 100 percent CPU and hangs,software
+S59,Since this morning Chrome throws error code 0xC0000142 on startup.,software
+S60,"Hi team, the ERP client throws error code ERR_9 on startup.",software
+S61,"The design tool exports corrupt PDF files, this is blocking my work today.",software
+S62,Urgent: Outlook throws error code 500 on startup,software
+S63,"Hi team, macro stopped working in the ERP client after patch Tuesday.",software
+S64,"License expired message in Excel, this is blocking my work today.",software
+S65,Urgent: the ERP client sync shows a conflict on every edit,software
+S66,Excel uses 100 percent CPU and hangs.,software
+S67,"The ERP client uses 100 percent CPU and hangs, this is blocking my work today.",software
+S68,the accounting app exports corrupt PDF files,software
+S69,The accounting app crashes when I open large files.,software
+S70,"Chrome update failed halfway, this is blocking my work today.",software
+S71,the BI desktop app plugin is incompatible after the upgrade,software
+S72,The accounting app sync shows a conflict on every edit. Tried restarting already.,software
+S73,Chrome freezes when I click save. Tried restarting already.,software
+S74,The design tool throws error code 500 on startup. Tried restarting already.,software
+S75,Urgent: the BI desktop app update failed halfway,software
+S76,The accounting app throws error code 0x80070005 on startup. Tried restarting already.,software
+S77,Please install Visual Studio Code on my machine.,software
+S78,"Need Chrome downgraded to the previous version, this is blocking my work today.",software
+S79,"FYI macro stopped working in Outlook after patch Tuesday, colleagues see the same.",software
+S80,"Please install the accounting app on my machine, this is blocking my work today.",software
+S81,Adobe Reader freezes when I click save?,software
+S82,"FYI Visual Studio Code freezes when I click save, colleagues see the same.",software
+S83,The design tool throws error code 0xC0000142 on startup. Tried restarting already.,software
+S84,"Hi team, Outlook sync shows a conflict on every edit.",software
+S85,"License expired message in Adobe Reader, this is blocking my work today.",software
+S86,Excel exports corrupt PDF files.,software
+S87,"Macro stopped working in Teams after patch Tuesday, this is blocking my work today.",software
+S88,Urgent: the accounting app is stuck on the loading screen,software
+S89,Adobe Reader sync shows a conflict on every edit.,software
+S90,The BI desktop app uses 100 percent CPU and hangs?,software
+S91,Outlook crashes when I open large files,software
+S92,Teams uses 100 percent CPU and hangs?,software
+S93,The design tool uses 100 percent CPU and hangs. Tried restarting already.,software
+S94,License expired message in Visual Studio Code - please help.,software
+S95,please install Outlook on my machine,software
+S96,The ERP client is stuck on the loading screen?,software
+S97,"Hi team, Teams plugin is incompatible after the upgrade.",software
+S98,Visual Studio Code exports corrupt PDF files. Tried restarting already.,software
+S99,Teams update failed halfway?,software
+S100,Excel freezes when I click save,software

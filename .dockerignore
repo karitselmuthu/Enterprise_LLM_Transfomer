@@ -1,0 +1,11 @@
+.venv/
+.hf_cache/
+models/
+__pycache__/
+*.pyc
+data/raw/
+data/processed/
+data/runtime/
+tests/
+reports/
+.git/

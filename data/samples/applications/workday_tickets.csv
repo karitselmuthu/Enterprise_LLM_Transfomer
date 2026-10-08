@@ -1,0 +1,21 @@
+id,text,label,application
+WD001,Workday will not let me approve leave requests after my manager role was added,access,Workday
+WD002,I cannot see my team's payroll reports because my Workday security group is missing,access,Workday
+WD003,My Workday account was disabled before my transfer date,access,Workday
+WD004,The benefits enrollment task says I lack permission although HR assigned it,access,Workday
+WD005,Workday SSO rejects my account after the identity team changed my username,access,Workday
+WD006,The HR kiosk touchscreen has a cracked corner and does not register Workday selections,hardware,Workday
+WD007,The printer used for Workday pay statements jams on every page,hardware,Workday
+WD008,My laptop battery dies before I can finish the Workday onboarding form,hardware,Workday
+WD009,The mouse scroll wheel on the shared HR workstation is broken during Workday reviews,hardware,Workday
+WD010,The kiosk power adapter failed and the Workday station will not start,hardware,Workday
+WD011,Workday opens over mobile data but times out on the office guest Wi-Fi,network,Workday
+WD012,The branch proxy cannot establish a connection to Workday this morning,network,Workday
+WD013,Workday pages load slowly only when our VPN uses the backup route,network,Workday
+WD014,The HR kiosk loses its network connection halfway through Workday check in,network,Workday
+WD015,DNS resolution for Workday fails at the warehouse while other sites work,network,Workday
+WD016,Workday displays an application error when I submit an expense item,software,Workday
+WD017,The time entry page clears my hours when I switch between weeks,software,Workday
+WD018,The Workday mobile app closes when I attach a receipt,software,Workday
+WD019,The benefits page shows an empty dropdown after the latest browser update,software,Workday
+WD020,Exporting the Workday staffing report produces an unreadable spreadsheet,software,Workday

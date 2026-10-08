@@ -1,0 +1,21 @@
+id,text,label,application
+JI001,Jira says I do not have permission to view the release board,access,Jira
+JI002,My new team can create issues but my Jira account cannot assign them,access,Jira
+JI003,The project admin removed my role and I need access to the sprint backlog,access,Jira
+JI004,Jira redirects me to sign in repeatedly after my SSO account was disabled,access,Jira
+JI005,I need approval to see the security project in Jira,access,Jira
+JI006,The laptop keyboard has three dead keys so I cannot type Jira issue descriptions,hardware,Jira
+JI007,My external monitor cracked and I cannot read the Jira board during standup,hardware,Jira
+JI008,The trackpad button is stuck and drags Jira cards without my input,hardware,Jira
+JI009,The docking station power port is loose and my laptop shuts off while editing Jira,hardware,Jira
+JI010,The tablet used at the service desk has a broken touch panel and cannot select Jira tickets,hardware,Jira
+JI011,Jira is reachable from home but fails only on the warehouse Wi-Fi,network,Jira
+JI012,The office proxy blocks Jira attachments while the rest of the page loads,network,Jira
+JI013,Every Jira page takes thirty seconds to load from the branch network,network,Jira
+JI014,Our VPN route to Jira drops whenever the tunnel changes gateways,network,Jira
+JI015,DNS for the Jira hostname fails on corporate laptops but works on mobile data,network,Jira
+JI016,Jira returns a server error when I save a ticket with a checklist,software,Jira
+JI017,The sprint board stays blank after yesterday's Jira upgrade,software,Jira
+JI018,The Jira automation rule creates duplicate issues on every form submission,software,Jira
+JI019,The installed Jira desktop client crashes when I open an attachment,software,Jira
+JI020,The time tracking plugin stops responding after I submit a work log,software,Jira

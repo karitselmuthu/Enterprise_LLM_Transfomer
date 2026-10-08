@@ -1,0 +1,224 @@
+{
+  "data_file": "data/samples/files/tickets_sample.csv",
+  "row_count": 400,
+  "label_counts": {
+    "access": 100,
+    "hardware": 100,
+    "network": 100,
+    "software": 100
+  },
+  "screening_only": true,
+  "exact_duplicate_id_groups": [],
+  "possible_personal_data_ids": {
+    "email": [],
+    "ipv4": [],
+    "phone_like": []
+  },
+  "incident_group_count": 333,
+  "mixed_label_groups": [],
+  "dataset_sha256": "9968985f1de1dc37149769204b5bdb00b3adf41af2ddbd76c32aa1bfa93905aa",
+  "partition_counts": {
+    "train": 240,
+    "validation": 80,
+    "test": 80
+  },
+  "partition_label_counts": {
+    "train": {
+      "access": 60,
+      "hardware": 60,
+      "network": 60,
+      "software": 60
+    },
+    "validation": {
+      "access": 20,
+      "hardware": 20,
+      "network": 20,
+      "software": 20
+    },
+    "test": {
+      "access": 20,
+      "hardware": 20,
+      "network": 20,
+      "software": 20
+    }
+  },
+  "near_duplicate_method": "SequenceMatcher text ratio >= 0.85; screening heuristic only",
+  "near_duplicate_cross_partition_count": 25,
+  "near_duplicate_cross_partition_examples": [
+    {
+      "left_id": "A60",
+      "left_partition": "train",
+      "right_id": "A90",
+      "right_partition": "validation",
+      "ratio": 0.933
+    },
+    {
+      "left_id": "H43",
+      "left_partition": "train",
+      "right_id": "H74",
+      "right_partition": "validation",
+      "ratio": 0.884
+    },
+    {
+      "left_id": "H59",
+      "left_partition": "train",
+      "right_id": "H91",
+      "right_partition": "validation",
+      "ratio": 0.865
+    },
+    {
+      "left_id": "H67",
+      "left_partition": "train",
+      "right_id": "H22",
+      "right_partition": "validation",
+      "ratio": 0.94
+    },
+    {
+      "left_id": "H73",
+      "left_partition": "train",
+      "right_id": "H52",
+      "right_partition": "validation",
+      "ratio": 0.885
+    },
+    {
+      "left_id": "H82",
+      "left_partition": "train",
+      "right_id": "H75",
+      "right_partition": "validation",
+      "ratio": 0.879
+    },
+    {
+      "left_id": "N11",
+      "left_partition": "train",
+      "right_id": "N58",
+      "right_partition": "validation",
+      "ratio": 0.895
+    },
+    {
+      "left_id": "N26",
+      "left_partition": "train",
+      "right_id": "N93",
+      "right_partition": "validation",
+      "ratio": 0.923
+    },
+    {
+      "left_id": "N27",
+      "left_partition": "train",
+      "right_id": "N37",
+      "right_partition": "validation",
+      "ratio": 0.886
+    },
+    {
+      "left_id": "N40",
+      "left_partition": "train",
+      "right_id": "N24",
+      "right_partition": "validation",
+      "ratio": 0.873
+    },
+    {
+      "left_id": "N71",
+      "left_partition": "train",
+      "right_id": "N29",
+      "right_partition": "validation",
+      "ratio": 0.861
+    },
+    {
+      "left_id": "N85",
+      "left_partition": "train",
+      "right_id": "N65",
+      "right_partition": "validation",
+      "ratio": 0.869
+    },
+    {
+      "left_id": "S67",
+      "left_partition": "train",
+      "right_id": "S22",
+      "right_partition": "validation",
+      "ratio": 0.85
+    },
+    {
+      "left_id": "A14",
+      "left_partition": "train",
+      "right_id": "A37",
+      "right_partition": "test",
+      "ratio": 0.857
+    },
+    {
+      "left_id": "A70",
+      "left_partition": "train",
+      "right_id": "A74",
+      "right_partition": "test",
+      "ratio": 0.889
+    },
+    {
+      "left_id": "A71",
+      "left_partition": "train",
+      "right_id": "A72",
+      "right_partition": "test",
+      "ratio": 0.857
+    },
+    {
+      "left_id": "H16",
+      "left_partition": "train",
+      "right_id": "H14",
+      "right_partition": "test",
+      "ratio": 0.889
+    },
+    {
+      "left_id": "H16",
+      "left_partition": "train",
+      "right_id": "H44",
+      "right_partition": "test",
+      "ratio": 0.872
+    },
+    {
+      "left_id": "H72",
+      "left_partition": "train",
+      "right_id": "H56",
+      "right_partition": "test",
+      "ratio": 0.903
+    },
+    {
+      "left_id": "N45",
+      "left_partition": "train",
+      "right_id": "N76",
+      "right_partition": "test",
+      "ratio": 0.9
+    },
+    {
+      "left_id": "N72",
+      "left_partition": "train",
+      "right_id": "N89",
+      "right_partition": "test",
+      "ratio": 0.919
+    },
+    {
+      "left_id": "S49",
+      "left_partition": "train",
+      "right_id": "S78",
+      "right_partition": "test",
+      "ratio": 0.931
+    },
+    {
+      "left_id": "A21",
+      "left_partition": "validation",
+      "right_id": "A75",
+      "right_partition": "test",
+      "ratio": 0.912
+    },
+    {
+      "left_id": "H24",
+      "left_partition": "validation",
+      "right_id": "H47",
+      "right_partition": "test",
+      "ratio": 0.882
+    },
+    {
+      "left_id": "H24",
+      "left_partition": "validation",
+      "right_id": "H69",
+      "right_partition": "test",
+      "ratio": 0.885
+    }
+  ]
+}

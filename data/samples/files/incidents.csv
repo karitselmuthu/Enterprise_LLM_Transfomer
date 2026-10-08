@@ -1,0 +1,7 @@
+incident_id,title,primary_label,opened,status
+INC-2026-0412,VPN concentrator capacity exhaustion,network,2026-04-12,resolved
+INC-2026-0519,Okta SSO outage after certificate rotation,access,2026-05-19,resolved
+INC-2026-0603,Faulty batch of docking stations,hardware,2026-06-03,resolved
+INC-2026-0711,Accounting app crash after patch release,software,2026-07-11,resolved
+INC-2026-0822,Third floor access point firmware bug,network,2026-08-22,resolved
+INC-2026-0905,MFA SMS provider delivery delays,access,2026-09-05,monitoring

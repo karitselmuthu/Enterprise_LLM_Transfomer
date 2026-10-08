@@ -1,0 +1,31 @@
+# Acceptance targets — SAMPLE thresholds. Agree with the service-desk owner before sign-off.
+evaluation_data:
+  test_split: prepared held-out split, grouped by incident_id (no incident spans splits)
+  challenge_set: challenge_set.csv (never used for training or tuning)
+quality:
+  macro_f1_min: 0.90
+  per_class_f1_min: 0.85
+  per_class_recall_min: { access: 0.90, hardware: 0.85, network: 0.85, software: 0.85 }   # access weighted higher: lockouts block work
+  max_pairwise_confusion_rate: { access->network: 0.05, network->access: 0.05, hardware->software: 0.05 }
+  challenge_set_accuracy_min: 0.75
+  baseline_lift_min_points: 5      # macro-F1 over TF-IDF + logistic regression baseline on same split
+  report: [confusion_matrix, per_class_metrics, 95pct_bootstrap_ci, 3_seed_mean_std]
+calibration:
+  ece_max: 0.05
+  abstain_threshold: 0.60          # below this -> needs_triage
+  abstain_rate_max: 0.10           # on test split
+  needs_triage_rows_must_abstain: true
+performance:
+  p95_latency_ms_max: 150          # single request, CPU instance, max_length 128
+  throughput_rps_min: 20
+  model_size_mb_max: 500
+integrity:
+  data_fingerprint_verified: required
+  incident_leakage_across_splits: 0
+  near_duplicate_leakage_across_splits_max: 0.01
+  pii_scan_findings: 0
+reproducibility:
+  pinned: [base_model_revision_sha, tokenizer_revision, config_hash, git_sha, seed, library_versions]
+promotion:
+  rule: all quality, calibration, performance and integrity gates pass
+  approver_role: ml-platform-owner  # placeholder

@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+.venv/
+.hf_cache/
+.pytest_cache/
+.DS_Store
+reports/private/
+configs/private/
+models/*.json
+models/*.pt
+models/*/
+reports/sample_all_metrics.json
+data/raw/
+data/processed/
+data/runtime/

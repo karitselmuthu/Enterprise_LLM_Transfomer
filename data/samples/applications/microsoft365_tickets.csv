@@ -1,0 +1,21 @@
+id,text,label,application
+M3001,Teams says I am not a member of the project channel even though my manager approved access,access,Microsoft 365
+M3002,Outlook keeps asking for credentials because my work account is disabled,access,Microsoft 365
+M3003,I need permission to open the restricted SharePoint document library,access,Microsoft 365
+M3004,OneDrive denies access to the shared finance folder after my group transfer,access,Microsoft 365
+M3005,My account cannot join the private Teams meeting for the audit committee,access,Microsoft 365
+M3006,The headset microphone cable is torn and nobody can hear me in Teams,hardware,Microsoft 365
+M3007,The webcam lens cracked after the laptop fell and video is blurred in Teams,hardware,Microsoft 365
+M3008,My laptop speaker makes a rattling noise during every Teams call,hardware,Microsoft 365
+M3009,The docking station no longer detects the monitor I use for Excel workbooks,hardware,Microsoft 365
+M3010,The keyboard space bar is broken and I cannot draft Outlook messages,hardware,Microsoft 365
+M3011,Teams calls lose audio only from the third floor Wi-Fi,network,Microsoft 365
+M3012,Outlook cannot sync mail while the VPN is connected to the old gateway,network,Microsoft 365
+M3013,SharePoint files open from home but time out on the office network,network,Microsoft 365
+M3014,OneDrive uploads stall whenever packet loss appears on the branch link,network,Microsoft 365
+M3015,Teams meetings fail to connect behind the guest network firewall,network,Microsoft 365
+M3016,Outlook crashes whenever I open the shared calendar,software,Microsoft 365
+M3017,Excel reports a corrupt workbook after the latest Office update,software,Microsoft 365
+M3018,The Teams desktop application freezes when I start screen sharing,software,Microsoft 365
+M3019,OneDrive reports a sync conflict for the same file after every save,software,Microsoft 365
+M3020,The SharePoint page shows a script error when I export a list,software,Microsoft 365

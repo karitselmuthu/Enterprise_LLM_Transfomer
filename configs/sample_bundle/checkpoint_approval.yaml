@@ -1,0 +1,18 @@
+# Pretrained checkpoint approval — TEMPLATE. Must be completed and signed off before any live launch.
+status: pending                       # pending | approved | rejected
+candidate:
+  model_id: <org/model-name>          # e.g. a small encoder such as a DeBERTa/RoBERTa-base variant — to be decided
+  revision_sha: <40-char commit SHA>  # pin; never use 'main'
+  tokenizer_revision_sha: <40-char commit SHA>
+  license: <SPDX id>
+  weights_format: safetensors         # required
+  trust_remote_code: false            # required
+review:
+  license_compatible_with_use: <yes/no>
+  model_card_reviewed: <yes/no>
+  known_bias_or_safety_notes: <text>
+  security_scan: <tool + result>
+sign_off:
+  approver: <name>
+  role: <role>
+  date: <YYYY-MM-DD>

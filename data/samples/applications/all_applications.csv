@@ -1,0 +1,81 @@
+id,text,label,application
+OK001,Okta says my account is locked even after the service desk reset my password,access,Okta
+OK002,I changed phones and cannot enroll the new Okta Verify device,access,Okta
+OK003,The finance application tile disappeared from my Okta dashboard after my role changed,access,Okta
+OK004,My security key is registered but Okta says I am not allowed into the payroll group,access,Okta
+OK005,The sign in page rejects my correct password after yesterday's account migration,access,Okta
+OK006,My USB security key snapped and I cannot insert it into the laptop,hardware,Okta
+OK007,The company phone used for Okta Verify has a shattered screen and cannot display the prompt,hardware,Okta
+OK008,The fingerprint sensor on my assigned laptop is physically damaged and cannot be used for sign in,hardware,Okta
+OK009,The spare security key has a loose connector and disconnects whenever it is touched,hardware,Okta
+OK010,My phone battery is swollen and the device will not power on for Okta Verify,hardware,Okta
+OK011,Okta loads on mobile data but times out on the office wired network,network,Okta
+OK012,Several users at the branch cannot reach the Okta sign in page after a DNS change,network,Okta
+OK013,The proxy returns a gateway timeout before the Okta login form appears,network,Okta
+OK014,Okta Verify pushes arrive only when my phone leaves the guest Wi-Fi,network,Okta
+OK015,The VPN connects but the route to our Okta tenant drops every few minutes,network,Okta
+OK016,Okta Verify closes immediately after the latest Android app update,software,Okta
+OK017,The Okta browser extension shows a blank window when I open an application tile,software,Okta
+OK018,The Okta dashboard displays an error page after I select any application,software,Okta
+OK019,The Okta Verify desktop installer fails with an unsupported version message,software,Okta
+OK020,After the browser update the Okta sign in button does nothing in Chrome,software,Okta
+JI001,Jira says I do not have permission to view the release board,access,Jira
+JI002,My new team can create issues but my Jira account cannot assign them,access,Jira
+JI003,The project admin removed my role and I need access to the sprint backlog,access,Jira
+JI004,Jira redirects me to sign in repeatedly after my SSO account was disabled,access,Jira
+JI005,I need approval to see the security project in Jira,access,Jira
+JI006,The laptop keyboard has three dead keys so I cannot type Jira issue descriptions,hardware,Jira
+JI007,My external monitor cracked and I cannot read the Jira board during standup,hardware,Jira
+JI008,The trackpad button is stuck and drags Jira cards without my input,hardware,Jira
+JI009,The docking station power port is loose and my laptop shuts off while editing Jira,hardware,Jira
+JI010,The tablet used at the service desk has a broken touch panel and cannot select Jira tickets,hardware,Jira
+JI011,Jira is reachable from home but fails only on the warehouse Wi-Fi,network,Jira
+JI012,The office proxy blocks Jira attachments while the rest of the page loads,network,Jira
+JI013,Every Jira page takes thirty seconds to load from the branch network,network,Jira
+JI014,Our VPN route to Jira drops whenever the tunnel changes gateways,network,Jira
+JI015,DNS for the Jira hostname fails on corporate laptops but works on mobile data,network,Jira
+JI016,Jira returns a server error when I save a ticket with a checklist,software,Jira
+JI017,The sprint board stays blank after yesterday's Jira upgrade,software,Jira
+JI018,The Jira automation rule creates duplicate issues on every form submission,software,Jira
+JI019,The installed Jira desktop client crashes when I open an attachment,software,Jira
+JI020,The time tracking plugin stops responding after I submit a work log,software,Jira
+M3001,Teams says I am not a member of the project channel even though my manager approved access,access,Microsoft 365
+M3002,Outlook keeps asking for credentials because my work account is disabled,access,Microsoft 365
+M3003,I need permission to open the restricted SharePoint document library,access,Microsoft 365
+M3004,OneDrive denies access to the shared finance folder after my group transfer,access,Microsoft 365
+M3005,My account cannot join the private Teams meeting for the audit committee,access,Microsoft 365
+M3006,The headset microphone cable is torn and nobody can hear me in Teams,hardware,Microsoft 365
+M3007,The webcam lens cracked after the laptop fell and video is blurred in Teams,hardware,Microsoft 365
+M3008,My laptop speaker makes a rattling noise during every Teams call,hardware,Microsoft 365
+M3009,The docking station no longer detects the monitor I use for Excel workbooks,hardware,Microsoft 365
+M3010,The keyboard space bar is broken and I cannot draft Outlook messages,hardware,Microsoft 365
+M3011,Teams calls lose audio only from the third floor Wi-Fi,network,Microsoft 365
+M3012,Outlook cannot sync mail while the VPN is connected to the old gateway,network,Microsoft 365
+M3013,SharePoint files open from home but time out on the office network,network,Microsoft 365
+M3014,OneDrive uploads stall whenever packet loss appears on the branch link,network,Microsoft 365
+M3015,Teams meetings fail to connect behind the guest network firewall,network,Microsoft 365
+M3016,Outlook crashes whenever I open the shared calendar,software,Microsoft 365
+M3017,Excel reports a corrupt workbook after the latest Office update,software,Microsoft 365
+M3018,The Teams desktop application freezes when I start screen sharing,software,Microsoft 365
+M3019,OneDrive reports a sync conflict for the same file after every save,software,Microsoft 365
+M3020,The SharePoint page shows a script error when I export a list,software,Microsoft 365
+WD001,Workday will not let me approve leave requests after my manager role was added,access,Workday
+WD002,I cannot see my team's payroll reports because my Workday security group is missing,access,Workday
+WD003,My Workday account was disabled before my transfer date,access,Workday
+WD004,The benefits enrollment task says I lack permission although HR assigned it,access,Workday
+WD005,Workday SSO rejects my account after the identity team changed my username,access,Workday
+WD006,The HR kiosk touchscreen has a cracked corner and does not register Workday selections,hardware,Workday
+WD007,The printer used for Workday pay statements jams on every page,hardware,Workday
+WD008,My laptop battery dies before I can finish the Workday onboarding form,hardware,Workday
+WD009,The mouse scroll wheel on the shared HR workstation is broken during Workday reviews,hardware,Workday
+WD010,The kiosk power adapter failed and the Workday station will not start,hardware,Workday
+WD011,Workday opens over mobile data but times out on the office guest Wi-Fi,network,Workday
+WD012,The branch proxy cannot establish a connection to Workday this morning,network,Workday
+WD013,Workday pages load slowly only when our VPN uses the backup route,network,Workday
+WD014,The HR kiosk loses its network connection halfway through Workday check in,network,Workday
+WD015,DNS resolution for Workday fails at the warehouse while other sites work,network,Workday
+WD016,Workday displays an application error when I submit an expense item,software,Workday
+WD017,The time entry page clears my hours when I switch between weeks,software,Workday
+WD018,The Workday mobile app closes when I attach a receipt,software,Workday
+WD019,The benefits page shows an empty dropdown after the latest browser update,software,Workday
+WD020,Exporting the Workday staffing report produces an unreadable spreadsheet,software,Workday

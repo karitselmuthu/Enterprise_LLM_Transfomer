@@ -1,0 +1,32 @@
+# Label definitions — SAMPLE. Replace with owner-approved wording before training.
+version: 1.0.0
+owner: service-desk-taxonomy@example.com   # placeholder
+labels:
+  access:
+    definition: Identity, authentication or authorization problems — the user or service cannot prove who they are, or lacks the entitlement to a resource.
+    includes: [sign-in failures, password reset/expiry, account lockout, MFA/SSO, role or group changes, joiner/mover/leaver requests, privilege elevation, physical badge entitlement]
+    excludes: [VPN connects then drops (network), app crashes after sign-in (software)]
+    examples: [A01, A03, A09]
+  hardware:
+    definition: A physical device or component is damaged, faulty, missing or needs a consumable.
+    includes: [broken screens/keys/ports, power and battery faults, printer jams and toner, peripherals, device replacement]
+    excludes: [driver or firmware regressions on a working device (software), shared device unreachable for many users (network)]
+    examples: [H01, H04, H08]
+  network:
+    definition: Connectivity, transport or name resolution between a device and a service is unavailable or degraded.
+    includes: [VPN drops after connect, wifi/ethernet, DNS, latency and packet loss, proxy blocks, site links, location-dependent slowness]
+    excludes: [VPN rejects credentials (access), single app error for all locations (software)]
+    examples: [N01, N05, N08]
+  software:
+    definition: An application, OS component, driver or license misbehaves, or software must be installed, updated or removed.
+    includes: [crashes, freezes, error codes, failed updates, plugin incompatibility, license expiry, install/downgrade requests]
+    excludes: [requests needing admin rights or entitlement (access), physical damage (hardware)]
+    examples: [S01, S03, S07]
+tie_break_rules:
+  - Label the issue that blocks the user first; if two issues are independent, route to needs_triage for a split.
+  - A stated physical cause wins over its downstream symptom (dropped laptop + no network -> hardware).
+  - Credential rejected -> access; session established then lost -> network.
+  - Same fault for everyone regardless of location -> software; varies by location -> network.
+abstain:
+  label: needs_triage          # not a training class; produced when max confidence < threshold
+  threshold_source: acceptance_targets.yaml#calibration.abstain_threshold

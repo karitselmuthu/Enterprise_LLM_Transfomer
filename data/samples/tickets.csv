@@ -1,0 +1,41 @@
+id,text,label
+A01,I cannot sign in to my account,access
+A02,Password reset link has expired,access
+A03,My account is locked after failed logins,access
+A04,Please grant access to the finance folder,access
+A05,Single sign on rejects my credentials,access
+A06,I need permission to open the HR dashboard,access
+A07,The login page says my password is incorrect,access
+A08,Please remove access for a departed employee,access
+A09,Multi factor authentication code is not arriving,access
+A10,My user role does not allow this report,access
+H01,My laptop screen is cracked,hardware
+H02,The keyboard keys are sticking,hardware
+H03,The office printer is jammed,hardware
+H04,My monitor will not turn on,hardware
+H05,The laptop battery drains quickly,hardware
+H06,Mouse scroll wheel is broken,hardware
+H07,The docking station does not detect my monitor,hardware
+H08,Printer toner needs replacing,hardware
+H09,The webcam hardware stopped working,hardware
+H10,My laptop fan is making a loud noise,hardware
+N01,VPN disconnects every few minutes,network
+N02,Office wifi is unavailable,network
+N03,The internet connection is very slow,network
+N04,I cannot reach the internal network,network
+N05,VPN authentication succeeds but the connection drops,network
+N06,The router in our meeting room is offline,network
+N07,Wifi signal is weak on the third floor,network
+N08,Network latency is high during video calls,network
+N09,The office ethernet port has no connection,network
+N10,Remote desktop cannot connect over VPN,network
+S01,The spreadsheet application crashes on launch,software
+S02,Please install the latest browser update,software
+S03,Our accounting app shows an error message,software
+S04,The desktop application freezes when saving,software
+S05,Please update the installed software version,software
+S06,The browser tab crashes when opening a report,software
+S07,The app fails to export a PDF file,software
+S08,The calendar application will not sync events,software
+S09,An error appears when I launch the editor,software
+S10,Please install the approved design application,software

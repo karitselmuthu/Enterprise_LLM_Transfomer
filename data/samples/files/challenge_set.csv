@@ -1,0 +1,21 @@
+id,text,label,rationale
+C01,VPN login rejects my password but wifi works fine,access,"Credential rejection = access, even when the VPN is the entry point"
+C02,VPN connects then drops after two minutes,network,Session established then lost = transport problem
+C03,Webcam not detected after the latest driver update,software,Driver/update regression = software unless device is physically faulty
+C04,Webcam lens is cracked,hardware,Physical damage
+C05,Printer shows offline for everyone on the floor,network,Shared device unreachable for many users = connectivity
+C06,Printer is out of toner,hardware,Consumable/physical
+C07,Teams says I am not allowed to join this channel,access,"Authorization decision, not an app fault"
+C08,Teams keeps crashing when I share my screen,software,Application fault
+C09,SharePoint is slow only from the branch office,network,Location-dependent performance
+C10,SharePoint page shows a script error for all users,software,Application error independent of user or location
+C11,laptop wont connect to anything after i dropped it,hardware,Physical cause stated; network symptom is downstream
+C12,"cant login, also the screen flickers",access,Multi-issue ticket: label the blocking issue; flag for triage split
+C13,Need admin rights to install Python,access,"Privilege request, not software install"
+C14,Please install Python 3.12 on my laptop,software,Install request with no permission change
+C15,Docking station gives no internet through its ethernet port,hardware,Dock port fault; same port works on the wall
+C16,Outlook cannot connect to the server,network,Default to network unless account/credential error shown; review per incident
+C17,My password works on web mail but not in the Outlook app,software,Credential is valid; client misbehaving
+C18,Badge reader at the door does not accept my card,access,Physical access entitlement unless reader is dead for all
+C19,Badge reader at the door has no lights and nobody can enter,hardware,Device dead for everyone
+C20,pls help!!! nothing works since the morning,needs_triage,Insufficient signal; model should abstain

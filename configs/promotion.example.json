@@ -1,0 +1,13 @@
+{
+  "status": "pending",
+  "data_type": "synthetic",
+  "model_path": "../models/selected_model.json",
+  "model_version": "v1",
+  "dataset_sha256": "replace-with-real-dataset-hash",
+  "validation_report": "../reports/private/validation.json",
+  "test_report": "../reports/private/test.json",
+  "checkpoint_approved": false,
+  "approved_by": "",
+  "approved_at": "",
+  "deployment_target": ""
+}
