@@ -1,152 +1,231 @@
-# Enterprise Ticket Transformer
+# Enterprise LLM Transformer
 
-This project joins two lectures in one local support-ticket workflow. **Lecture 1** implements V1–V7 classifiers and a V8 API. **Lecture 2** implements a small causal language model with MoE, MHA/MQA/GQA, RoPE, KV caching, and sampling exercises, then connects a trained demo decoder to draft review. The supplied tickets and replies are synthetic learning examples, not evidence of enterprise performance. Read [why the classifier generations exist](docs/generations.md) alongside the code. The project is licensed under [MIT](LICENSE).
+### From Transformer fundamentals to a reviewed support-ticket response
 
-| Version | Implementation | What it adds |
-| --- | --- | --- |
-| V1 | Token counts + Naive Bayes | A transparent word-count baseline |
-| V2 | Skip-gram Word2Vec + class centroids | Learned word vectors from nearby words |
-| V3 | LSTM | Word order and recurrent state |
-| V4 | LSTM + additive attention | A learned weight for each token |
-| V5 | Scratch Transformer encoder | Q/K/V self-attention and sinusoidal positions |
-| V6 | Frozen pretrained BERT + class centroids | Language representations learned elsewhere |
-| V7 | Fine-tuned pretrained BERT | Update pretrained weights for ticket labels |
-| V8 | FastAPI + Docker | Model loading, input validation, API key, health check |
+This educational project connects two lectures in one local application. **Lecture 1** classifies a support ticket. **Lecture 2** uses a small decoder to suggest a reply. A reviewer can edit, approve, or reject the suggestion. An approved response is written to a **local SQLite ticket-system table**.
 
-The scratch neural stages use [PyTorch's LSTM](https://docs.pytorch.org/docs/stable/generated/torch.nn.LSTM.html) for V3/V4 and explicit Q/K/V projections in `src/transformer/attention.py` for V5. V6/V7 use the small [bert-tiny model](https://huggingface.co/prajjwal1/bert-tiny) by default. It is an educational choice; select and approve a model separately for enterprise use.
+> **Project status:** V1–V7 classifiers, the V8 FastAPI service, Lecture 2 concept implementations, and the local draft-review workflow are implemented. The included tickets and replies are fictional. No external support system is connected, and generated replies have not been evaluated for real customer use.
 
-## Lecture paths and repository layout
+## 1. Project overview
 
-- [Lecture 1: Transformers and ticket classification](docs/lecture_01_transformers/README.md) covers tokenization → embeddings → Word2Vec → LSTM → attention → Transformer encoder, then model evaluation and serving.
-- [Lecture 2: Large Language Models](docs/lecture_02_llm/README.md) implements architectures → mixture of experts → MHA/MQA/GQA → RoPE → context and KV caching → sampling → response drafting.
+Support teams receive free-text tickets about access, hardware, network, and software issues. This repository shows why each text representation and model architecture exists, then demonstrates how a generative model can assist an agent while keeping a human decision in the workflow.
 
 ```text
-src/
-  preprocessing/ embeddings/ baselines/ transformer/  # Lecture 1 models
-  llm/                                                # Lecture 2 decoder and workflow
-    architectures/ moe/ attention/ positional_encoding/
-    context/ sampling/ inference/
-  training/ evaluation/ inference/                    # Existing shared workflows
-configs/
-  transformer/ llm/                                   # Lecture-specific settings
-  *.json                                              # Existing locked splits and examples
-docs/
-  lecture_01_transformers/ lecture_02_llm/
-tests/
-  transformer/ llm/                                   # New phase tests live here
-  test_*.py                                           # Existing Lecture 1 tests
+Lecture 1: NLP → tokenization → embeddings → Word2Vec → LSTM
+           → attention → Transformer encoder → pretrained encoders → API
+
+Lecture 2: encoder versus decoder → MoE → MHA/MQA/GQA → RoPE
+           → context and KV caching → sampling → response drafting
 ```
 
-Existing classifier module paths and split manifests remain usable. The new end-to-end demo uses a scratch V5 Transformer classifier and a tiny decoder trained on fictional response examples. Its SQLite response table is a **local ticket-system adapter**; no external support platform is connected. A later training lecture can improve the decoder after these mechanisms are understood.
+The small datasets and models establish that the code paths work. They do not establish enterprise accuracy, response quality, or production readiness.
 
-## Run the two-lecture workflow
+## 2. Application flow
 
-First install the development requirements from the next section, then train both synthetic demo artifacts:
+```text
+Customer support ticket
+        ↓
+V5 Transformer encoder (Lecture 1 demo)
+        ↓
+Ticket classification: access / hardware / network / software
+        ↓
+Tiny causal decoder (Lecture 2 demo)
+        ↓
+Suggested response saved as a pending draft
+        ↓
+Human review: edit and approve, or reject
+        ↓
+Approved response stored in the local ticket-system table
+```
+
+`POST /drafts` creates a suggestion but does not create a ticket response. Only approval writes to the local response table. Rejection leaves that table unchanged; a second decision on the same draft returns HTTP 409. The reviewer key is separate from the ticket-submission key. The `reviewer` field is supplied by the caller and is **not** backed by an identity provider.
+
+The integrated demo trains a scratch V5 classifier on fictional application tickets and a tiny decoder on generic fictional reply patterns. Choosing V5 for this demo is instructional, not a production model-selection result.
+
+## 3. Lecture 1 — Transformers
+
+| Generation | Implementation | Concept it introduces |
+| --- | --- | --- |
+| V1 | Token counts and Naive Bayes | A transparent baseline |
+| V2 | Skip-gram Word2Vec and class centroids | Learned word embeddings |
+| V3 | LSTM | Sequence order and recurrent state |
+| V4 | LSTM with additive attention | Token weighting |
+| V5 | Scratch Transformer encoder | Q/K/V self-attention and positional encoding |
+| V6 | Frozen pretrained BERT and class centroids | Reused pretrained representations |
+| V7 | Fine-tuned pretrained BERT | Updating pretrained weights for ticket labels |
+| V8 | FastAPI and Docker | Serving a selected classifier |
+
+See [why each generation exists](docs/generations.md) and the [Lecture 1 guide](docs/lecture_01_transformers/README.md). V6 and V7 require a downloaded, approved pretrained checkpoint. Generated model artifacts are excluded from Git.
+
+## 4. Lecture 2 — Large Language Models
+
+| Phase | Topic | Working implementation |
+| --- | --- | --- |
+| 2.1 | LLM architectures | Compare the bidirectional classifier with a causal next-token decoder |
+| 2.2 | Mixture of Experts | Lightweight top-1 routing with capacity and overflow |
+| 2.3 | MHA, MQA, GQA | Configurable query and key/value head counts |
+| 2.4 | RoPE | Rotary position embeddings on queries and keys |
+| 2.5 | Context length | Incremental decoding with a KV cache |
+| 2.6 | Sampling | Greedy, temperature, top-k, and top-p choices |
+| 2.7 | Integration | Generate a draft and require review before a local ticket update |
+
+The default decoder uses grouped-query attention (`heads=4`, `kv_heads=2`) and a dense feed-forward layer. In [the decoder configuration](configs/llm/demo.json), `kv_heads=4` selects MHA, `kv_heads=1` selects MQA, and `experts=2` enables the lightweight MoE during training. See the [Lecture 2 guide](docs/lecture_02_llm/README.md) for code paths, tests, and limits.
+
+## 5. Repository structure
+
+```text
+Enterprise_LLM_Transfomer/
+├── api/                         # Classification and review routes
+├── configs/                     # Locked splits and model settings
+│   ├── transformer/
+│   └── llm/
+├── data/samples/                # Fictional tickets and replies
+├── docs/                        # Lecture guides and real-data procedure
+│   ├── lecture_01_transformers/
+│   └── lecture_02_llm/
+├── reports/                     # Synthetic classification comparisons
+├── scripts/                     # Two-model demo bootstrap
+├── src/
+│   ├── preprocessing/           # Lecture 1 tokenization
+│   ├── embeddings/              # Lecture 1 embedding tools
+│   ├── baselines/               # V1–V4 models
+│   ├── transformer/             # Scratch Transformer encoder
+│   ├── llm/                     # Lecture 2 decoder and draft workflow
+│   │   ├── architectures/
+│   │   ├── moe/
+│   │   ├── attention/
+│   │   ├── positional_encoding/
+│   │   ├── context/
+│   │   ├── sampling/
+│   │   └── inference/
+│   ├── training/
+│   ├── evaluation/
+│   └── inference/
+├── tests/                       # Classifier, LLM, API, and review tests
+│   ├── transformer/
+│   └── llm/
+├── Dockerfile
+├── requirements.txt
+└── README.md
+```
+
+Generated models are stored under `models/`, and local review records under `data/runtime/`; both are ignored by Git. Keep private ticket data under `data/processed/`, which is also ignored.
+
+## 6. Getting started
+
+### Prerequisites
+
+- Python 3.12 and `pip`, or `uv`
+- Git to clone the repository
+- Internet access only if you choose to download V6/V7 pretrained weights
+
+Clone, install, and run the tests:
 
 ```bash
-.venv/bin/python -m scripts.bootstrap_workflow
+git clone https://github.com/karitselmuthu/Enterprise_LLM_Transfomer.git
+cd Enterprise_LLM_Transfomer
+python3.12 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements-dev.txt
+python -m unittest discover -s tests -v
+```
+
+If `python3.12` is unavailable but `uv` is installed, create the environment with `uv venv --python 3.12 .venv`, then activate it and run the same install and test commands.
+
+### Run the complete local workflow
+
+From the repository root, with the environment activated:
+
+```bash
+python -m scripts.bootstrap_workflow
 TICKET_MODE=demo \
 TICKET_MODEL_PATH=models/transformer_demo.json \
 TICKET_LLM_PATH=models/llm_demo.pt \
 TICKET_REVIEW_DB=data/runtime/tickets.sqlite3 \
 TICKET_API_KEY=demo-user-key \
 TICKET_REVIEWER_API_KEY=demo-review-key \
-.venv/bin/uvicorn api.main:app --host 127.0.0.1 --port 8000 --no-access-log
+uvicorn api.main:app --host 127.0.0.1 --port 8000 --no-access-log
 ```
 
-In another terminal, create a pending draft, inspect it, then approve it. The returned draft ID replaces `DRAFT_ID` below.
+The bootstrap trains V5 using the locked split for [all_applications.csv](data/samples/applications/all_applications.csv), then trains the tiny decoder using [tickets.csv](data/samples/tickets.csv). Training outputs stay on your machine.
+
+In a **second terminal**, create a draft. Copy the `id` from the JSON response into `DRAFT_ID` in the next commands:
 
 ```bash
 curl -H 'X-API-Key: demo-user-key' -H 'Content-Type: application/json' \
   -d '{"ticket_id":"INC-DEMO-1","text":"VPN connection drops during calls"}' \
   http://127.0.0.1:8000/drafts
+
 curl -H 'X-Reviewer-Key: demo-review-key' \
   http://127.0.0.1:8000/drafts/DRAFT_ID
-curl -H 'X-Reviewer-Key: demo-review-key' -H 'Content-Type: application/json' \
-  -d '{"reviewer":"support-agent","edited_response":"We will review the VPN connection and follow up."}' \
-  http://127.0.0.1:8000/drafts/DRAFT_ID/approve
+
 curl -H 'X-Reviewer-Key: demo-review-key' \
   http://127.0.0.1:8000/tickets/INC-DEMO-1/responses
 ```
 
-Before approval, the local ticket has no response record. Rejection leaves it empty; repeated approval returns 409. The separate reviewer key gates the decision endpoint. This is a learning workflow: the demo model memorizes simple synthetic reply patterns, the reviewer name is not tied to an identity provider, and production mode refuses to start the LLM workflow. The [Lecture 2 guide](docs/lecture_02_llm/README.md) shows the modules, tests, and limits.
-
-## Run locally
-
-Use Python 3.12. The commands below use `uv` because this workstation has no `python3.12` shell command.
+The response list should be empty before approval. Approve an edited response, then read the local ticket responses again:
 
 ```bash
-uv venv --python 3.12 .venv
-uv pip install --python .venv/bin/python -r requirements-dev.txt
-.venv/bin/python -m unittest discover -s tests -v
+curl -H 'X-Reviewer-Key: demo-review-key' -H 'Content-Type: application/json' \
+  -d '{"reviewer":"support-agent","edited_response":"We will review the VPN connection and follow up."}' \
+  http://127.0.0.1:8000/drafts/DRAFT_ID/approve
+
+curl -H 'X-Reviewer-Key: demo-review-key' \
+  http://127.0.0.1:8000/tickets/INC-DEMO-1/responses
 ```
 
-The saved sample split in `configs/sample_split.json` has 32 training IDs and 8 test IDs. Its dataset hash prevents accidentally evaluating modified tickets against old artifacts. Build a separate split once for any new dataset; keep its test IDs fixed while developing models. CI runs the unit tests and an audit of the application sample; pretrained weights are not downloaded by CI.
+To test rejection, create a **new** draft and call `POST /drafts/DRAFT_ID/reject` with `X-Reviewer-Key` and JSON such as `{"reviewer":"support-agent","reason":"Needs investigation"}`. A draft can receive only one final decision. The API also exposes `GET /health` and `POST /predict`; `/predict` takes `{"text":"VPN disconnects"}` with `X-API-Key` and returns a label, scores, model version, and score type.
+
+### Run in Docker
+
+The Dockerfile installs dependencies and trains the two fictional demo artifacts while building the image:
 
 ```bash
-.venv/bin/python -m src.training.train                         # V1
-.venv/bin/python -m src.training.train_v2                      # V2
-.venv/bin/python -m src.training.train_neural --version v3     # LSTM
-.venv/bin/python -m src.training.train_neural --version v4     # LSTM + attention
-.venv/bin/python -m src.training.train_neural --version v5     # Transformer
-.venv/bin/python -m src.training.prepare_pretrained           # Download once
-.venv/bin/python -m src.training.train_pretrained --version v6 # Frozen encoder
-.venv/bin/python -m src.training.train_pretrained --version v7 # Fine-tuning
-.venv/bin/python -m src.evaluation.compare_all
-.venv/bin/python -m src.inference.predict --model models/v5.json "VPN disconnects"
-.venv/bin/python -m src.embeddings.inspect vpn --model models/v2.json
+docker build -t enterprise-llm-transformer .
+docker run --rm -p 8000:8000 \
+  -e TICKET_API_KEY=demo-user-key \
+  -e TICKET_REVIEWER_API_KEY=demo-review-key \
+  enterprise-llm-transformer
 ```
 
-`prepare_pretrained` needs network access. It stores a local copy in `models/pretrained_base`; V6/V7 training and prediction use that copy without downloading at inference time. Its `--model-id` and `--revision` flags let you select and pin another approved checkpoint. Model files are generated locally and excluded from Git.
+Use the same `curl` calls against `127.0.0.1:8000`. Mount `/app/data/runtime` if review records need to survive container removal. The image has not been built in this project environment because a Docker daemon was unavailable; the Python workflow and API tests were run locally.
 
-## Sample comparison
+## 7. Train and compare classifier generations
 
-All stages use the same eight held-out synthetic tickets. These scores only confirm that each workflow runs; two tickets per class cannot rank production models reliably.
-
-| Stage | Accuracy | Macro F1 |
-| --- | ---: | ---: |
-| V1 | 0.500 | 0.458 |
-| V2 | 0.250 | 0.167 |
-| V3 | 0.500 | 0.435 |
-| V4 | 0.500 | 0.458 |
-| V5 | 0.375 | 0.333 |
-| V6 | 0.500 | 0.542 |
-| V7 | 0.125 | 0.063 |
-
-See [V1/V2 mistakes](reports/sample_error_analysis.md). The full comparison command prints mistake IDs for every version. In particular, V7's low sample result shows why the API must serve a deliberately selected model rather than defaulting to the latest generation.
-
-An [expanded 400-ticket synthetic set](data/samples/files/README.md) is also available with incident links, an 80-ticket grouped split, and a separate challenge set. It is useful for practice and pipeline checks; its templated wording causes substantial near-duplicate overlap between training and test tickets. It is not a substitute for representative enterprise data.
-
-The [application ticket examples](data/samples/applications/README.md) contain 80 newly written fictional tickets across Okta, Jira, Microsoft 365, and Workday, with a combined CSV that the training commands can read directly. Their [V1–V7 comparison](reports/application_comparison.md) includes per-class and per-application results and every held-out mistake.
-
-## Use your ticket data
-
-Prepare a de-identified UTF-8 CSV with unique `id`, nonempty `text`, and consistent `label` values. Put it under `data/processed/`, which is ignored by Git. The split helper supports incident grouping with `--groups` and a separate validation partition with `--validation-fraction`. Audit the data and linked incidents before fitting a model. The full procedure, including a single final test evaluation and promotion review, is in [real-ticket evaluation and model promotion](docs/real_data_and_promotion.md).
+With the environment activated, these commands train the original small synthetic sample. Each stage uses the same locked split:
 
 ```bash
-.venv/bin/python -m src.training.split --data data/processed/tickets.csv --groups data/processed/incident_groups.csv --validation-fraction 0.2 --output configs/private/real_split.json
-.venv/bin/python -m src.evaluation.data_audit --data data/processed/tickets.csv --groups data/processed/incident_groups.csv --split configs/private/real_split.json --output reports/private/data_audit.json
-.venv/bin/python -m src.training.train --data data/processed/tickets.csv --split configs/private/real_split.json --model models/tickets_v1.json
-.venv/bin/python -m src.training.train_neural --version v5 --data data/processed/tickets.csv --split configs/private/real_split.json --model models/tickets_v5.json
+python -m src.training.train
+python -m src.training.train_v2
+python -m src.training.train_neural --version v3
+python -m src.training.train_neural --version v4
+python -m src.training.train_neural --version v5
+python -m src.training.prepare_pretrained
+python -m src.training.train_pretrained --version v6
+python -m src.training.train_pretrained --version v7
+python -m src.evaluation.compare_all
 ```
 
-Pass the same `--data` and `--split` paths to every stage. V2, V6, and V7 accept those flags as well. Evaluate the validation partition with `src.evaluation.evaluate --data ... --model ... --partition validation` or compare all model paths with `src.evaluation.compare_all --data ... --models ... --partition validation`. Use the test partition only after choosing a candidate.
+`prepare_pretrained` downloads the default small BERT checkpoint once. V6/V7 reuse the local copy. The application-specific comparison uses 80 fictional tickets from Okta, Jira, Microsoft 365, and Workday, with 16 held-out tickets. Its [per-class results and ticket mistakes](reports/application_comparison.md) and [machine-readable metrics](reports/application_all_metrics.json) show how rankings can change on a tiny set. For example, V5 classified 12 of 16 tickets correctly in that recorded comparison. Those numbers are demonstrations, not estimates of live service-desk performance.
 
-## Serve V8
+To train on your own data, use the [real-ticket evaluation and promotion guide](docs/real_data_and_promotion.md). It covers de-identification, consistent labels, linked incidents, fixed validation and test sets, data auditing, and classifier promotion. Keep private datasets and reports out of Git.
 
-The API loads the selected artifact once at startup. Its default `TICKET_MODE=demo` requires `TICKET_API_KEY`; setting `TICKET_ALLOW_UNAUTHENTICATED=1` is intended only for local exploration. `TICKET_MODE=production` additionally requires a private [promotion manifest](docs/real_data_and_promotion.md) matching a real-data model and both evaluation reports. `POST /predict` accepts `{ "text": "..." }`; `GET /health` reports readiness and the loaded generation. The response calls cosine scores *similarities* for V2/V6 and model probabilities for other stages; neither should be treated as calibrated confidence without validation.
+## 8. Evaluation and review limits
 
-```bash
-TICKET_API_KEY=change-me TICKET_MODEL_PATH=models/v1.json .venv/bin/uvicorn api.main:app --host 127.0.0.1 --port 8000 --no-access-log
-curl -H 'X-API-Key: change-me' -H 'Content-Type: application/json' \
-  -d '{"text":"VPN disconnects during meetings"}' http://127.0.0.1:8000/predict
-```
+The automated suite checks the classifier pipeline, LLM component behavior, API authorization, and the draft decision transaction. Lecture 2 checks include causal masking, attention variants, RoPE, cache consistency, sampling, MoE routing, and approval/rejection behavior. Run it with `python -m unittest discover -s tests -v`.
 
-The Dockerfile trains the synthetic V5 classifier and toy decoder while building the image. Set both API keys at runtime and mount `/app/data/runtime` if you want to keep local review records between containers. Mount separately trained artifacts and set their paths to try another classifier or decoder. Use real secrets through your deployment platform and TLS at the ingress.
+Classifier metrics and mistake IDs are available for the included synthetic datasets. The decoder's training loss measures fit to simple reply patterns; it does **not** measure factual accuracy, relevance, safety, or customer usefulness. Human review is required even in the local demo.
 
-```bash
-docker build -t ticket-classifier .
-docker run --rm -p 8000:8000 -e TICKET_API_KEY=demo-user-key -e TICKET_REVIEWER_API_KEY=demo-review-key ticket-classifier
-```
+The API accepts a shared reviewer key and a caller-entered reviewer name, stores ticket text in local SQLite, and has no external support-ticket connector. Production mode deliberately refuses to start the LLM draft workflow. A real deployment needs evaluated ticket and response data, approved model weights and licensing, authenticated reviewers, retention and audit rules, secret management, monitoring, and a tested support-system adapter. The classifier-only production mode additionally requires a [promotion manifest](docs/real_data_and_promotion.md); that manifest validates metadata but does not itself authenticate an approver.
 
-The API and container configuration are a local demonstration. The Docker image has not been built here because a daemon is unavailable. Enterprise launch still needs real-data evaluation of both classification and replies, approved model weights and licensing, authenticated reviewer identities, a support-system connector, secret management, monitoring, and an incident/rollback plan. No live deployment is included here.
+## 9. Next development steps
+
+| Step | Work needed |
+| --- | --- |
+| 1 | Collect approved, de-identified tickets and consistent labels; lock incident-aware evaluation splits |
+| 2 | Evaluate V1–V7 against the same real-ticket test set and review mistakes |
+| 3 | Collect approved response examples and define human response-quality criteria |
+| 4 | Evaluate and select a suitable generative model; measure draft quality, latency, and reviewer edits |
+| 5 | Integrate an authenticated reviewer identity and a real support-ticket system with audit and rollback controls |
+
+This repository is licensed under [MIT](LICENSE).
