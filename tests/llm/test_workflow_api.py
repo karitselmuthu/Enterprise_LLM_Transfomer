@@ -19,6 +19,33 @@ class FakeGenerator:
 
 
 class WorkflowApiTests(unittest.TestCase):
+    def test_browser_client_origin_and_preflight(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            model_path = root / "classifier.json"
+            model_path.write_text(json.dumps(fit([
+                {"text": "VPN down", "label": "network"},
+                {"text": "Reset password", "label": "access"},
+            ])), encoding="utf-8")
+            settings = {"TICKET_API_KEY": "user-key", "TICKET_REVIEWER_API_KEY": "review-key",
+                        "TICKET_MODE": "demo"}
+            with patch.dict(os.environ, settings):
+                app = create_app(model_path, FakeGenerator(), root / "review.sqlite3")
+                with TestClient(app) as client:
+                    preflight = client.options("/drafts", headers={
+                        "Origin": "http://127.0.0.1:8080",
+                        "Access-Control-Request-Method": "POST",
+                        "Access-Control-Request-Headers": "content-type,x-api-key",
+                    })
+                    self.assertEqual(preflight.status_code, 200)
+                    self.assertEqual(preflight.headers["access-control-allow-origin"],
+                                     "http://127.0.0.1:8080")
+                    disallowed = client.options("/drafts", headers={
+                        "Origin": "http://example.com",
+                        "Access-Control-Request-Method": "POST",
+                    })
+                    self.assertEqual(disallowed.status_code, 400)
+
     def test_classify_draft_review_and_local_ticket_update(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

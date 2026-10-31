@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Support ticket demo</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <main>
+    <header>
+      <p class="eyebrow">Transformer demo · local workflow</p>
+      <h1>Support tickets</h1>
+      <p>Submit a ticket, then review its suggested reply. An approved reply is saved in the local ticket response table.</p>
+    </header>
+
+    <section aria-labelledby="connection-title">
+      <h2 id="connection-title">Connection</h2>
+      <label>API address <input id="api-url" type="url" value="http://127.0.0.1:8000" required></label>
+      <p class="hint">Keys stay in this page's memory and are sent to the API only for the requested action.</p>
+    </section>
+
+    <div class="columns">
+      <section aria-labelledby="submit-title">
+        <h2 id="submit-title">1. Submit ticket</h2>
+        <form id="submit-form">
+          <label>Submission key <input id="submit-key" type="password" autocomplete="off" required></label>
+          <label>Ticket ID <input id="ticket-id" maxlength="128" required placeholder="INC-DEMO-1"></label>
+          <label>Issue <textarea id="ticket-text" maxlength="4000" required placeholder="VPN connection drops during calls"></textarea></label>
+          <button type="submit">Create draft</button>
+        </form>
+        <p id="submit-status" class="status" role="status" aria-live="polite"></p>
+      </section>
+
+      <section aria-labelledby="review-title">
+        <h2 id="review-title">2. Review draft</h2>
+        <form id="load-form">
+          <label>Reviewer key <input id="review-key" type="password" autocomplete="off" required></label>
+          <label>Draft ID <input id="draft-id" required></label>
+          <button type="submit" class="secondary">Load draft</button>
+        </form>
+        <div id="draft-panel" hidden>
+          <dl>
+            <dt>Ticket</dt><dd id="draft-ticket"></dd>
+            <dt>Category</dt><dd id="draft-label"></dd>
+            <dt>Status</dt><dd id="draft-status"></dd>
+            <dt>Issue</dt><dd id="draft-text"></dd>
+          </dl>
+          <form id="decision-form">
+            <label>Reviewer name <input id="reviewer" maxlength="100" required></label>
+            <label>Suggested reply (edit before approval) <textarea id="reply" maxlength="4000"></textarea></label>
+            <label>Rejection reason <textarea id="reason" maxlength="1000" placeholder="Required when rejecting"></textarea></label>
+            <div class="actions">
+              <button id="approve" type="button">Approve reply</button>
+              <button id="reject" type="button" class="secondary">Reject draft</button>
+            </div>
+          </form>
+        </div>
+        <p id="review-status" class="status" role="status" aria-live="polite"></p>
+      </section>
+    </div>
+
+    <section aria-labelledby="responses-title">
+      <h2 id="responses-title">3. Saved ticket responses</h2>
+      <button id="refresh-responses" class="secondary" type="button">Refresh responses</button>
+      <ul id="responses"></ul>
+      <p id="responses-status" class="status" role="status" aria-live="polite"></p>
+    </section>
+  </main>
+</body>
+</html>

@@ -6,6 +6,7 @@ from contextlib import asynccontextmanager
 from pathlib import Path
 
 from fastapi import Depends, FastAPI, Header, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field, field_validator
 
 from src.inference.runtime import load_predictor
@@ -74,6 +75,16 @@ def create_app(model_path: Path | None = None, generator=None,
         yield
 
     app = FastAPI(title="Enterprise Ticket Classifier", version="0.1.0", lifespan=lifespan)
+    # The browser client runs on its own local origin. Keep cross-origin access explicit.
+    default_origin = "http://127.0.0.1:8080" if os.environ.get("TICKET_MODE", "demo") == "demo" else ""
+    client_origin = os.environ.get("TICKET_CLIENT_ORIGIN", default_origin)
+    if client_origin:
+        app.add_middleware(
+            CORSMiddleware,
+            allow_origins=[client_origin],
+            allow_methods=["GET", "POST"],
+            allow_headers=["Content-Type", "X-API-Key", "X-Reviewer-Key"],
+        )
 
     def require_key(x_api_key: str | None = Header(default=None)) -> None:
         expected = os.environ.get("TICKET_API_KEY")

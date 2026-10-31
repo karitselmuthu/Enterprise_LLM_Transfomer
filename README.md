@@ -4,7 +4,7 @@
 
 This educational project connects two lectures in one local application. **Lecture 1** classifies a support ticket. **Lecture 2** uses a small decoder to suggest a reply. A reviewer can edit, approve, or reject the suggestion. An approved response is written to a **local SQLite ticket-system table**.
 
-> **Project status:** V1–V7 classifiers, the V8 FastAPI service, Lecture 2 concept implementations, and the local draft-review workflow are implemented. The included tickets and replies are fictional. No external support system is connected, and generated replies have not been evaluated for real customer use.
+> **Project status:** V1–V7 classifiers, the V8 FastAPI service, a separate browser client, Lecture 2 concept implementations, and the local draft-review workflow are implemented. The included tickets and replies are fictional. No external support system is connected, and generated replies have not been evaluated for real customer use.
 
 ## 1. Project overview
 
@@ -24,6 +24,8 @@ The small datasets and models establish that the code paths work. They do not es
 
 ```text
 Customer support ticket
+        ↓ browser client on port 8080 sends HTTP JSON + submission key
+Application server (FastAPI on port 8000)
         ↓
 V5 Transformer encoder (Lecture 1 demo)
         ↓
@@ -32,8 +34,9 @@ Ticket classification: access / hardware / network / software
 Tiny causal decoder (Lecture 2 demo)
         ↓
 Suggested response saved as a pending draft
-        ↓
-Human review: edit and approve, or reject
+        ↓ browser client fetches draft with separate reviewer key
+Human review in browser: edit and approve, or reject
+        ↓ browser client posts decision to application server
         ↓
 Approved response stored in the local ticket-system table
 ```
@@ -76,6 +79,7 @@ The default decoder uses grouped-query attention (`heads=4`, `kv_heads=2`) and a
 ```text
 Enterprise_LLM_Transfomer/
 ├── api/                         # Classification and review routes
+├── client/                      # Separate static ticket submission/review client
 ├── configs/                     # Locked splits and model settings
 │   ├── transformer/
 │   └── llm/
@@ -149,7 +153,15 @@ uvicorn api.main:app --host 127.0.0.1 --port 8000 --no-access-log
 
 The bootstrap trains V5 using the locked split for [all_applications.csv](data/samples/applications/all_applications.csv), then trains the tiny decoder using [tickets.csv](data/samples/tickets.csv). Training outputs stay on your machine.
 
-In a **second terminal**, create a draft. Copy the `id` from the JSON response into `DRAFT_ID` in the next commands:
+For the browser client, start this **separate process** in a second terminal and open `http://127.0.0.1:8080`. Enter `demo-user-key` to submit, then `demo-review-key` to load and review a draft. The client sends JSON over HTTP to the FastAPI server; it does not load models or open SQLite itself. Keys are held only in page memory and are cleared when the page closes or reloads.
+
+```bash
+python -m http.server 8080 --bind 127.0.0.1 --directory client
+```
+
+The server allows cross-origin browser requests from `http://127.0.0.1:8080` in demo mode. If the client is served from another origin, set `TICKET_CLIENT_ORIGIN` to that exact origin **before starting the API** (for example, `http://localhost:8080`). Production mode does not allow a browser origin by default.
+
+For the command-line equivalent, use these `curl` calls in another terminal. Copy the `id` from the JSON response into `DRAFT_ID`:
 
 ```bash
 curl -H 'X-API-Key: demo-user-key' -H 'Content-Type: application/json' \
