@@ -71,8 +71,8 @@ Resources:
               - Effect: Allow
                 Action: secretsmanager:GetSecretValue
                 Resource:
-                  - !Ref SubmissionKey
-                  - !Ref ReviewerKey
+                  - Ref: SubmissionKey
+                  - Ref: ReviewerKey
 
   InfrastructureRole:
     Type: AWS::IAM::Role
@@ -107,24 +107,30 @@ Resources:
                   - dynamodb:PutItem
                   - dynamodb:GetItem
                   - dynamodb:UpdateItem
-                Resource: !GetAtt DraftsTable.Arn
+                Resource:
+                  Fn::GetAtt: [DraftsTable, Arn]
               - Effect: Allow
                 Action:
                   - dynamodb:PutItem
                   - dynamodb:Query
-                Resource: !GetAtt ResponsesTable.Arn
+                Resource:
+                  Fn::GetAtt: [ResponsesTable, Arn]
 
   DemoService:
     Type: AWS::ECS::ExpressGatewayService
     Properties:
       Cpu: '1024'
       Memory: '3072'
-      ExecutionRoleArn: !GetAtt ExecutionRole.Arn
-      InfrastructureRoleArn: !GetAtt InfrastructureRole.Arn
-      TaskRoleArn: !GetAtt AppTaskRole.Arn
+      ExecutionRoleArn:
+        Fn::GetAtt: [ExecutionRole, Arn]
+      InfrastructureRoleArn:
+        Fn::GetAtt: [InfrastructureRole, Arn]
+      TaskRoleArn:
+        Fn::GetAtt: [AppTaskRole, Arn]
       HealthCheckPath: /health
       PrimaryContainer:
-        Image: !Ref ImageUri
+        Image:
+          Ref: ImageUri
         ContainerPort: 8000
         Environment:
           - Name: TICKET_MODE
@@ -132,21 +138,31 @@ Resources:
           - Name: TICKET_REVIEW_BACKEND
             Value: dynamodb
           - Name: TICKET_DRAFTS_TABLE
-            Value: !Ref DraftsTable
+            Value:
+              Ref: DraftsTable
           - Name: TICKET_RESPONSES_TABLE
-            Value: !Ref ResponsesTable
+            Value:
+              Ref: ResponsesTable
           - Name: TICKET_SERVE_CLIENT
             Value: '1'
         Secrets:
           - Name: TICKET_API_KEY
-            ValueFrom: !Ref SubmissionKey
+            ValueFrom:
+              Ref: SubmissionKey
           - Name: TICKET_REVIEWER_API_KEY
-            ValueFrom: !Ref ReviewerKey
+            ValueFrom:
+              Ref: ReviewerKey
 
 Outputs:
   AppUrl:
-    Value: !GetAtt DemoService.Endpoint
+    Description: HTTPS endpoint for the demo service.
+    Value:
+      Fn::GetAtt: [DemoService, Endpoint]
   SubmissionKeyArn:
-    Value: !Ref SubmissionKey
+    Description: Secret ARN; retrieve its value from Secrets Manager.
+    Value:
+      Ref: SubmissionKey
   ReviewerKeyArn:
-    Value: !Ref ReviewerKey
+    Description: Secret ARN; retrieve its value from Secrets Manager.
+    Value:
+      Ref: ReviewerKey
