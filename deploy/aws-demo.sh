@@ -1,6 +1,16 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+if [[ -f deploy/aws.env ]]; then
+  while IFS='=' read -r name value || [[ -n "$name" ]]; do
+    case "$name" in
+      ''|\#*) ;;
+      AWS_REGION|AWS_PROFILE|AWS_STACK_NAME) export "$name=$value" ;;
+      *) echo "Unsupported setting in deploy/aws.env: $name" >&2; exit 1 ;;
+    esac
+  done < deploy/aws.env
+fi
+
 region="${AWS_REGION:?Set AWS_REGION to the chosen AWS Region}"
 stack="${AWS_STACK_NAME:-enterprise-llm-transformer-demo}"
 repository="enterprise-llm-transformer-demo"

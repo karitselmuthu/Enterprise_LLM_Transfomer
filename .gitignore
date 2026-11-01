@@ -13,3 +13,4 @@ reports/sample_all_metrics.json
 data/raw/
 data/processed/
 data/runtime/
+deploy/aws.env

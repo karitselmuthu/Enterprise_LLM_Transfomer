@@ -30,10 +30,22 @@ CloudFormation provisions the tables, generated secrets, ECS execution and task 
 
 Prerequisites: an AWS account with permission to use ECR, CloudFormation, IAM, Secrets Manager, DynamoDB, and ECS Express Mode; AWS CLI authentication; Docker daemon; a chosen AWS Region; and a default VPC with public subnets. Review AWS pricing and service availability in that Region before deploying. The account and Region are intentionally not hardcoded. [Express Mode prerequisites](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/express-service-getting-started.html#express-service-getting-started-prerequisites).
 
+### AWS account access and project settings
+
+Use an IAM Identity Center profile with temporary credentials for the person running deployment. In the AWS account, an administrator must grant that profile permission to push to ECR and create or update the CloudFormation stack and its IAM, ECS Express Mode, DynamoDB, and Secrets Manager resources. The deployment script discovers the account ID with STS. Do not create root-user access keys or put an AWS access key ID, secret access key, or session token in this repository. [AWS IAM best practices](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html); [AWS CLI Identity Center setup](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-sso.html).
+
+```bash
+aws configure sso --profile enterprise-llm-demo
+aws sso login --profile enterprise-llm-demo
+aws sts get-caller-identity --profile enterprise-llm-demo
+cp deploy/aws.env.example deploy/aws.env
+```
+
+Edit the ignored `deploy/aws.env` file to set `AWS_REGION`, `AWS_PROFILE`, and optionally `AWS_STACK_NAME`. Those values are deployment settings, not secrets. The CLI stores the profile configuration outside the project, and the script passes the selected Region to AWS commands. `deploy/aws.env` is ignored by Git. [AWS CLI profile and Region environment variables](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html).
+
 From a clean commit on this branch:
 
 ```bash
-export AWS_REGION=YOUR_REGION
 bash deploy/aws-demo.sh
 ```
 
