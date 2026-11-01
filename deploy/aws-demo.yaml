@@ -1,0 +1,152 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Hosted fictional support-ticket demo with durable review records.
+
+Parameters:
+  ImageUri:
+    Type: String
+    Description: Immutable private ECR image URI already pushed in this account and Region.
+
+Resources:
+  DraftsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      SSESpecification:
+        SSEEnabled: true
+
+  ResponsesTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: ticket_id
+          AttributeType: S
+        - AttributeName: response_key
+          AttributeType: S
+      KeySchema:
+        - AttributeName: ticket_id
+          KeyType: HASH
+        - AttributeName: response_key
+          KeyType: RANGE
+      SSESpecification:
+        SSEEnabled: true
+
+  SubmissionKey:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      GenerateSecretString:
+        PasswordLength: 40
+        ExcludePunctuation: true
+
+  ReviewerKey:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      GenerateSecretString:
+        PasswordLength: 40
+        ExcludePunctuation: true
+
+  ExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ecs-tasks.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy
+      Policies:
+        - PolicyName: ReadDemoKeys
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action: secretsmanager:GetSecretValue
+                Resource:
+                  - !Ref SubmissionKey
+                  - !Ref ReviewerKey
+
+  InfrastructureRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ecs.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AmazonECSInfrastructureRoleforExpressGatewayServices
+
+  AppTaskRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ecs-tasks.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: DemoDataAndKeys
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - dynamodb:PutItem
+                  - dynamodb:GetItem
+                  - dynamodb:UpdateItem
+                Resource: !GetAtt DraftsTable.Arn
+              - Effect: Allow
+                Action:
+                  - dynamodb:PutItem
+                  - dynamodb:Query
+                Resource: !GetAtt ResponsesTable.Arn
+
+  DemoService:
+    Type: AWS::ECS::ExpressGatewayService
+    Properties:
+      Cpu: '1024'
+      Memory: '3072'
+      ExecutionRoleArn: !GetAtt ExecutionRole.Arn
+      InfrastructureRoleArn: !GetAtt InfrastructureRole.Arn
+      TaskRoleArn: !GetAtt AppTaskRole.Arn
+      HealthCheckPath: /health
+      PrimaryContainer:
+        Image: !Ref ImageUri
+        ContainerPort: 8000
+        Environment:
+          - Name: TICKET_MODE
+            Value: demo
+          - Name: TICKET_REVIEW_BACKEND
+            Value: dynamodb
+          - Name: TICKET_DRAFTS_TABLE
+            Value: !Ref DraftsTable
+          - Name: TICKET_RESPONSES_TABLE
+            Value: !Ref ResponsesTable
+          - Name: TICKET_SERVE_CLIENT
+            Value: '1'
+        Secrets:
+          - Name: TICKET_API_KEY
+            ValueFrom: !Ref SubmissionKey
+          - Name: TICKET_REVIEWER_API_KEY
+            ValueFrom: !Ref ReviewerKey
+
+Outputs:
+  AppUrl:
+    Value: !GetAtt DemoService.Endpoint
+  SubmissionKeyArn:
+    Value: !Ref SubmissionKey
+  ReviewerKeyArn:
+    Value: !Ref ReviewerKey

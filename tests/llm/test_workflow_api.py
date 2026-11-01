@@ -46,6 +46,21 @@ class WorkflowApiTests(unittest.TestCase):
                     })
                     self.assertEqual(disallowed.status_code, 400)
 
+    def test_hosted_client_uses_same_app_for_page_and_api(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            model_path = root / "classifier.json"
+            model_path.write_text(json.dumps(fit([
+                {"text": "VPN down", "label": "network"},
+                {"text": "Reset password", "label": "access"},
+            ])), encoding="utf-8")
+            settings = {"TICKET_API_KEY": "user-key", "TICKET_REVIEWER_API_KEY": "review-key",
+                        "TICKET_MODE": "demo", "TICKET_SERVE_CLIENT": "1"}
+            with patch.dict(os.environ, settings):
+                with TestClient(create_app(model_path, FakeGenerator(), root / "review.sqlite3")) as client:
+                    self.assertIn("Support tickets", client.get("/").text)
+                    self.assertEqual(client.get("/health").json()["status"], "ok")
+
     def test_classify_draft_review_and_local_ticket_update(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -59,12 +74,12 @@ class WorkflowApiTests(unittest.TestCase):
                 app = create_app(model_path, FakeGenerator(), root / "review.sqlite3")
                 with TestClient(app) as client:
                     draft_response = client.post("/drafts", headers={"X-API-Key": "user-key"},
-                        json={"ticket_id": "INC-1", "text": "VPN connection down"})
+                        json={"ticket_id": "INC/2026", "text": "VPN connection down"})
                     self.assertEqual(draft_response.status_code, 200)
                     draft = draft_response.json()
                     self.assertEqual(draft["status"], "pending")
                     self.assertEqual(draft["label"], "network")
-                    path = f"/tickets/INC-1/responses"
+                    path = "/tickets/INC%2F2026/responses"
                     self.assertEqual(client.get(path, headers={"X-Reviewer-Key": "review-key"}).json(), [])
                     self.assertEqual(client.post(f"/drafts/{draft['id']}/approve",
                         headers={"X-Reviewer-Key": "wrong"},

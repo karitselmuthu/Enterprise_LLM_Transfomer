@@ -5,6 +5,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 COPY src/ src/
 COPY api/ api/
+COPY client/ client/
 COPY data/samples/ data/samples/
 COPY configs/application_sample_split.json configs/application_sample_split.json
 COPY configs/llm/demo.json configs/llm/demo.json

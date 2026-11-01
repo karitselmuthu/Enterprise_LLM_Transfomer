@@ -3,6 +3,10 @@
 const field = (id) => document.getElementById(id);
 let loadedDraft = null;
 
+if (!['localhost', '127.0.0.1'].includes(window.location.hostname)) {
+  field('api-url').value = window.location.origin;
+}
+
 function status(id, message, error = false) {
   const element = field(id);
   element.textContent = message;

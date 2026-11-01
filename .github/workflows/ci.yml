@@ -15,4 +15,5 @@ jobs:
           cache: pip
       - run: python -m pip install -r requirements-dev.txt
       - run: python -m unittest discover -s tests -v
+      - run: cfn-lint deploy/aws-demo.yaml
       - run: python -m src.evaluation.data_audit --data data/samples/applications/all_applications.csv --split configs/application_sample_split.json --output /tmp/application-audit.json

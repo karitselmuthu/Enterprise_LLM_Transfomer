@@ -6,6 +6,8 @@ This educational project connects two lectures in one local application. **Lectu
 
 > **Project status:** V1–V7 classifiers, the V8 FastAPI service, a separate browser client, Lecture 2 concept implementations, and the local draft-review workflow are implemented. The included tickets and replies are fictional. No external support system is connected, and generated replies have not been evaluated for real customer use.
 
+The [`aws/hosted-demo` branch](docs/aws_hosted_demo.md) adds an AWS hosted version of this same fictional workflow, with DynamoDB review records and a single HTTPS browser/API origin. It keeps the local SQLite option. This is still a demo, not a production support system.
+
 ## 1. Project overview
 
 Support teams receive free-text tickets about access, hardware, network, and software issues. This repository shows why each text representation and model architecture exists, then demonstrates how a generative model can assist an agent while keeping a human decision in the workflow.

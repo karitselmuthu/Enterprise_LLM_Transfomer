@@ -7,6 +7,7 @@ from pathlib import Path
 
 from fastapi import Depends, FastAPI, Header, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field, field_validator
 
 from src.inference.runtime import load_predictor
@@ -62,8 +63,16 @@ def create_app(model_path: Path | None = None, generator=None,
                 raise RuntimeError("Draft workflow requires TICKET_API_KEY and TICKET_REVIEWER_API_KEY")
             from src.llm.inference.generate import DemoLLMGenerator
             app.state.generator = generator or DemoLLMGenerator(Path(os.environ["TICKET_LLM_PATH"]))
-            app.state.store = DraftStore(store_path or Path(os.environ.get(
-                "TICKET_REVIEW_DB", "data/runtime/tickets.sqlite3")))
+            backend = os.environ.get("TICKET_REVIEW_BACKEND", "sqlite")
+            if backend == "dynamodb":
+                from src.llm.inference.dynamodb_review import DynamoDraftStore
+                app.state.store = DynamoDraftStore(os.environ["TICKET_DRAFTS_TABLE"],
+                                                   os.environ["TICKET_RESPONSES_TABLE"])
+            elif backend == "sqlite":
+                app.state.store = DraftStore(store_path or Path(os.environ.get(
+                    "TICKET_REVIEW_DB", "data/runtime/tickets.sqlite3")))
+            else:
+                raise RuntimeError(f"Unsupported TICKET_REVIEW_BACKEND: {backend}")
         if mode == "production":
             if not api_key:
                 raise RuntimeError("Production requires TICKET_API_KEY")
@@ -148,9 +157,12 @@ def create_app(model_path: Path | None = None, generator=None,
             except ValueError as error:
                 raise HTTPException(status_code=422, detail=str(error)) from None
 
-        @app.get("/tickets/{ticket_id}/responses", dependencies=[Depends(require_reviewer_key)])
+        @app.get("/tickets/{ticket_id:path}/responses", dependencies=[Depends(require_reviewer_key)])
         def ticket_responses(ticket_id: str) -> list[dict]:
             return app.state.store.ticket_responses(ticket_id)
+
+    if os.environ.get("TICKET_SERVE_CLIENT") == "1":
+        app.mount("/", StaticFiles(directory="client", html=True), name="client")
 
     return app
 
