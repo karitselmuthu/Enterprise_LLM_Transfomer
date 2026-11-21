@@ -86,15 +86,15 @@ frames=["{x}","{X}.","Hi team, {x}.","{X} - please help.","Urgent: {x}","{X}, th
         "Since this morning {x}.","{X}. Tried restarting already.","FYI {x}, colleagues see the same.","{X}?"]
 
 def fill(t,b):
-    return re.sub(r"\{(\w+)\}", lambda m: random.choice(b[m.group(1)]), t)
+    return re.sub(r"\{(\w+)\}", lambda m: random.choice(b[m.group(1)]), t)  # nosec B311
 
 def make(label, k, seen):
     b=banks[label]; out=[]
     tries=0
     while len(out)<k and tries<20000:
         tries+=1
-        core=fill(random.choice(b["core"]),b)
-        txt=random.choice(frames).replace("{X}",core[0].upper()+core[1:]).replace("{x}",core)
+        core=fill(random.choice(b["core"]),b)  # nosec B311
+        txt=random.choice(frames).replace("{X}",core[0].upper()+core[1:]).replace("{x}",core)  # nosec B311
         key=core.lower()
         if key in seen: continue
         seen.add(key); out.append(txt)

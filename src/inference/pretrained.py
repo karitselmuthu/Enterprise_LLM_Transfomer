@@ -10,12 +10,12 @@ from transformers import AutoModel, AutoModelForSequenceClassification, AutoToke
 def load_pretrained_predictor(metadata: dict, metadata_path: Path):
     version = metadata["version"]
     directory = metadata_path.parent / metadata["base_dir" if version == "v6" else "model_dir"]
-    tokenizer = AutoTokenizer.from_pretrained(directory, local_files_only=True)
+    tokenizer = AutoTokenizer.from_pretrained(directory, local_files_only=True)  # nosec B615
     if version == "v6":
-        model = AutoModel.from_pretrained(directory, local_files_only=True)
+        model = AutoModel.from_pretrained(directory, local_files_only=True)  # nosec B615
         centroids = {label: torch.tensor(vector) for label, vector in metadata["centroids"].items()}
     else:
-        model = AutoModelForSequenceClassification.from_pretrained(directory, local_files_only=True)
+        model = AutoModelForSequenceClassification.from_pretrained(directory, local_files_only=True)  # nosec B615
     model.eval()
 
     def predict(text: str) -> dict:

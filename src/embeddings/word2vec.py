@@ -47,7 +47,7 @@ def train_embeddings(
     if not pairs:
         raise ValueError("Word2Vec needs at least one context pair")
 
-    rng = random.Random(seed)
+    rng = random.Random(seed)  # nosec B311
     scale = 0.5 / dimensions
     input_vectors = [[rng.uniform(-scale, scale) for _ in range(dimensions)] for _ in vocabulary]
     output_vectors = [[0.0] * dimensions for _ in vocabulary]

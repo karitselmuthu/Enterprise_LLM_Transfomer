@@ -51,7 +51,7 @@ def split_grouped(rows: list[dict[str, str]], group_ids: dict[str, str], seed: i
             raise ValueError(f"Group {group_id!r} spans labels: {sorted(labels)}")
         by_label.setdefault(next(iter(labels)), []).append((group_id, members))
 
-    rng = random.Random(seed)
+    rng = random.Random(seed)  # nosec B311
     chosen_groups = set()
     for label in sorted(by_label):
         candidates = sorted(by_label[label])

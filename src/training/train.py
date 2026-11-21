@@ -29,7 +29,7 @@ def split_rows(rows: list[dict[str, str]], seed: int = 42, test_fraction: float 
     groups = defaultdict(list)
     for row in rows:
         groups[row["label"]].append(row)
-    rng = random.Random(seed)
+    rng = random.Random(seed)  # nosec B311
     test_ids = set()
     for label in sorted(groups):
         group = sorted(groups[label], key=lambda row: row["id"])

@@ -1,0 +1,8 @@
+# Extend the default rules; ignore only the documented demo key used in README curl examples.
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Documented demo keys (README curl examples only)"
+regexTarget = "match"
+regexes = ['''demo-review-key''', '''demo-user-key''']
