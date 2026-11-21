@@ -28,7 +28,7 @@ def train(data: Path, split: Path, output: Path, base_dir: Path, version: str,
     manifest, train_rows, _ = load_split(split, load_rows(data))
     torch.manual_seed(manifest["seed"])
     torch.set_num_threads(1)
-    tokenizer = AutoTokenizer.from_pretrained(base_dir, local_files_only=True)
+    tokenizer = AutoTokenizer.from_pretrained(base_dir, local_files_only=True)  # nosec B615
     batch = _encode(tokenizer, [row["text"] for row in train_rows], max_length)
     labels = manifest["labels"]
     metadata = {
@@ -39,7 +39,7 @@ def train(data: Path, split: Path, output: Path, base_dir: Path, version: str,
     if "validation_ids" in manifest:
         metadata["validation_ids"] = manifest["validation_ids"]
     if version == "v6":
-        encoder = AutoModel.from_pretrained(base_dir, local_files_only=True)
+        encoder = AutoModel.from_pretrained(base_dir, local_files_only=True)  # nosec B615
         encoder.eval()
         with torch.inference_mode():
             features = encoder(**batch).last_hidden_state[:, 0, :]
@@ -52,7 +52,7 @@ def train(data: Path, split: Path, output: Path, base_dir: Path, version: str,
         metadata.update({"base_dir": os.path.relpath(base_dir.resolve(), output.parent.resolve()),
                          "centroids": centroids})
     else:
-        model = AutoModelForSequenceClassification.from_pretrained(
+        model = AutoModelForSequenceClassification.from_pretrained(  # nosec B615
             base_dir, num_labels=len(labels), local_files_only=True,
             id2label={i: label for i, label in enumerate(labels)},
             label2id={label: i for i, label in enumerate(labels)},
